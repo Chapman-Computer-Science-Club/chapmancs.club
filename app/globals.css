@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-vt: "VT323", monospace;
+  --font-mono: "Space Mono", monospace;
+  --font-sans: "DM Sans", sans-serif;
+
+  /* Light theme tokens (R G B — Tailwind alpha-aware) */
+  --cream: 248 244 239;
+  --ink: 26 15 16;
+  --muted: 107 90 92;
+}
+
+.dark {
+  /* Dark theme tokens */
+  --cream: 20 9 10;
+  --ink: 240 232 224;
+  --muted: 168 150 152;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Smooth color transitions when toggling theme */
+html,
+body,
+nav,
+section,
+footer {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
