@@ -174,7 +174,7 @@ export const boardYears: { year: string; tiers: { label: string; members: BoardM
         label: "External Team",
         members: [
           m(p.diego_lopez_ramos, "Hackathon Coordinator"),
-          m(p.sharon_chang, "External Outreach"),
+          m(p.ronnie_chang, "External Outreach"),
           m(p.daisy_fernandez_reyes, "Graphic Designer"),
           m(p.darren_pak, "Social Media Chair"),
         ],

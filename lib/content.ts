@@ -1,4 +1,8 @@
 export const PANTHER_CONNECT = "https://pantherconnect.chapman.edu/COMPSC/club_signup";
+export const INSTAGRAM = "https://www.instagram.com/chapmancsclub/";
+export const LINKEDIN = "https://www.linkedin.com/company/chapman-computer-science-club/";
+export const DISCORD = "http://discord.gg/9NSwX5PxqC";
+export const LINKTREE = "https://linktr.ee/chapmancsclub";
 
 export const heroStats = [
   ["STAT", "VALUE"],
@@ -55,9 +59,9 @@ export const events = [
 ];
 
 export const socials = [
-  { icon: "+", label: "Register", href: PANTHER_CONNECT },
-  { icon: "@", label: "Instagram", href: "https://www.instagram.com/chapmancsclub/" },
-  { icon: "in", label: "LinkedIn", href: "https://www.linkedin.com/company/chapman-computer-science-club/" },
-  { icon: "#", label: "Discord", href: "https://discord.gg/7FMexzxsV2" },
-  { icon: "*", label: "Linktree", href: "https://linktr.ee/chapmancsclub" },
+  { icon: "+", label: "PantherConnect", href: PANTHER_CONNECT },
+  { icon: "@", label: "Instagram", href: INSTAGRAM },
+  { icon: "in", label: "LinkedIn", href: LINKEDIN },
+  { icon: "#", label: "Discord", href: DISCORD },
+  { icon: "*", label: "Linktree", href: LINKTREE },
 ];
