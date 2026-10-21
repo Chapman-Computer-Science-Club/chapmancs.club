@@ -114,4 +114,71 @@ export const boardYears: { year: string; tiers: { label: string; members: BoardM
       },
     ],
   },
+  {
+    year: "2023/24",
+    tiers: [
+      {
+        label: "Leadership",
+        members: [
+          m(p.ben_fellows, "President"),
+          m(p.ponthea_zahraii, "Vice President"),
+          m(p.gillian_canicosa, "Vice President (Fall)"),
+          m(p.tyler_lewis, "Vice President (Spring)"),
+        ],
+      },
+      {
+        label: "Internal Team",
+        members: [m(p.arisa_takenaka_trombley, "Events Coordinator"), m(p.zachary_inn, "Events Coordinator (Fall)")],
+      },
+      {
+        label: "Operations Team",
+        members: [
+          m(p.nataniel_farzan, "Secretary"),
+          m(p.joel_escobar, "Treasurer"),
+          m(p.tim_pieschala, "Logistics Chair (Fall)"),
+          m(p.greg_chinnici, "Logistics Chair (Spring)"),
+        ],
+      },
+      {
+        label: "External Team",
+        members: [
+          m(p.diego_lopez_ramos, "Hackathon Coordinator"),
+          m(p.jeffrey_bok, "Hackathon Coordinator"),
+          m(p.tyler_kay, "Hackathon Coordinator (Fall)"),
+          m(p.kalin_richardson, "External Outreach, Graphic Designer"),
+          m(p.owen_agbayani, "Social Media Chair"),
+        ],
+      },
+    ],
+  },
+  {
+    year: "2022/23",
+    tiers: [
+      {
+        label: "Leadership",
+        members: [
+          m(p.michael_masakayan, "President"),
+          m(p.ben_fellows, "Vice President"),
+          m(p.gillian_canicosa, "Vice President"),
+        ],
+      },
+      {
+        label: "Internal Team",
+        members: [m(p.ponthea_zahraii, "Events Coordinator"), m(p.tyler_lewis, "Events Coordinator")],
+      },
+      {
+        label: "Operations Team",
+        members: [m(p.zachary_inn, "Secretary"), m(p.jeffrey_bok, "Treasurer"), m(p.tim_pieschala, "Logistics Chair")],
+      },
+      {
+        label: "External Team",
+        members: [
+          m(p.diego_lopez_ramos, "Hackathon Coordinator"),
+          m(p.sharon_chang, "External Outreach"),
+          m(p.daisy_fernandez_reyes, "Graphic Designer"),
+          m(p.darren_pak, "Social Media Chair"),
+        ],
+      },
+    ],
+  },
 ];

@@ -49,13 +49,12 @@ export function BoardSection() {
                     key={m.name + m.role}
                     className={s.member}
                     data-marquee-host
-                    data-avatar-host
                     initial={{ opacity: 0, x: -6 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: n++ * 0.035 }}
                   >
                     {m.linkedin ? (
-                      <a className={s.memberLink} href={m.linkedin} target="_blank" rel="noreferrer">
+                      <a className={s.memberLink} data-avatar-host href={m.linkedin} target="_blank" rel="noreferrer">
                         {card}
                       </a>
                     ) : (
