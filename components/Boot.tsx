@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
+import { useInitialMedia } from "@/lib/useInitialMedia";
 import styles from "./Boot.module.css";
 import BlockLoader from "./sacred/BlockLoader";
 
 const COMMAND = "ssh chapmancs.club";
 const TAP_TYPE_MS = 65;
+const AUTOPLAY_START_MS = 600;
 
 const BANNER = String.raw`
   ___ _  _   _   ___ __  __   _   _  _    ___ ___
@@ -20,6 +22,9 @@ export default function Boot({ onDone }: { onDone: () => void }) {
   const [auto, setAuto] = useState(false);
   const [connecting, setConnecting] = useState(false);
   const done = typed >= COMMAND.length;
+  // Touch screens have no keyboard to type with, so the command plays on its own.
+  const touch = useInitialMedia("(pointer: coarse)");
+  const playing = auto || touch;
 
   // Desktop: each keystroke types the next character; once complete, Enter (or any key) connects.
   useEffect(() => {
@@ -36,16 +41,18 @@ export default function Boot({ onDone }: { onDone: () => void }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [done, connecting, onDone]);
 
-  // Tap / click: play the whole command, then connect.
+  // Tap / click (or a touch screen): play the whole command, then connect.
   useEffect(() => {
-    if (!auto) return;
+    if (!playing) return;
     if (done) {
       const id = setTimeout(() => setConnecting(true), 350);
       return () => clearTimeout(id);
     }
-    const id = setTimeout(() => setTyped((n) => n + 1), TAP_TYPE_MS + Math.random() * 60);
+    // autoplay pauses on the empty prompt first, like someone about to type
+    const delay = typed === 0 && !auto ? AUTOPLAY_START_MS : TAP_TYPE_MS + Math.random() * 60;
+    const id = setTimeout(() => setTyped((n) => n + 1), delay);
     return () => clearTimeout(id);
-  }, [auto, typed, done]);
+  }, [playing, auto, typed, done]);
 
   useEffect(() => {
     if (!connecting) return;
@@ -97,7 +104,7 @@ export default function Boot({ onDone }: { onDone: () => void }) {
         )}
       </div>
 
-      {!connecting && (
+      {!connecting && !playing && (
         <div className={styles.hint}>{done ? "press enter" : typed === 0 ? "type or tap · esc to skip" : ""}</div>
       )}
     </motion.div>
