@@ -17,6 +17,15 @@ const isDesktop = () => !matchMedia("(max-width: 640px)").matches;
 
 const FOCUSABLE = 'a[href], [tabindex="0"]';
 
+const CLICKABLE = 'a[href], button, [role=button], [tabindex="0"], [data-mode=photo]';
+
+// mouse presses click right away; touch waits for the tap's release, the first moment a phone allows audio
+function clickSound(e: React.PointerEvent) {
+  const onPress = e.pointerType === "mouse";
+  if (e.type !== (onPress ? "pointerdown" : "pointerup") || e.button !== 0) return;
+  if (e.target instanceof Element && e.target.closest(CLICKABLE)) playTypingSound();
+}
+
 const NAV_KEYS = new Set(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "h", "j", "k", "l", "Enter", "Escape"]);
 
 function toggleTheme() {
@@ -213,6 +222,8 @@ export default function Terminal({
       }}
       onFocus={(e) => setMode(modeOf(e.target))}
       onPointerOver={(e) => setMode(modeOf(e.target) ?? modeOf(document.activeElement))}
+      onPointerDown={clickSound}
+      onPointerUp={clickSound}
     >
       <header className={styles.top}>
         <span>guest@chapmancs.club:~/{page === "home" ? "" : page}$</span>
