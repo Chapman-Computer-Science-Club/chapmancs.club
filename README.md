@@ -1,80 +1,87 @@
-# Chapman CS Club — Next.js
+# chapmancs.club
 
-A modern, statically-generated website for Chapman University's Computer Science Club.
+The website for Chapman University's Computer Science Club, live at [chapmancs.club](https://chapmancs.club). It's
+built to feel like a terminal: an `ssh` boot sequence, then a keyboard-driven menu of sections.
 
 ## Stack
 
-- **Next.js 14** (App Router)
-- **TypeScript**
-- **Tailwind CSS v3**
-- **Google Fonts** — VT323, Space Mono, DM Sans (loaded via `next/font`)
+- **Next.js 16** (App Router), **React 19**, **TypeScript**
+- **CSS Modules** on top of [SRCL](https://sacred.computer) components and styles
+- **Motion** for animation
+- **pnpm**, **ESLint**, and **Prettier**
 
 ## Getting Started
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+```bash
+pnpm build           # production build
+pnpm typecheck       # tsc across the site
+pnpm lint            # eslint (lint:fix to fix)
+pnpm format          # prettier across the repo
+```
 
 ## Project Structure
 
 ```
 app/
-  layout.tsx       # Root layout — fonts, metadata
-  page.tsx         # Home page — composes all sections
-  globals.css      # Tailwind base + scroll-reveal CSS
+  layout.tsx       # Root layout: font, site metadata, theme init script, the terminal shell
+  page.tsx         # Home (/); about/, events/, pantherhacks/, board/, contact/ each have their own page.tsx
+  not-found.tsx    # ~/404
+  sitemap.ts       # /sitemap.xml
+  robots.ts        # /robots.txt
+  globals.css      # Site overrides on top of SRCL (Chapman tint, layout)
+  sacred.css       # SRCL base styles and color palette
 
 components/
-  Nav.tsx          # Fixed top nav
-  Hero.tsx         # Landing hero with binary bg + stats
-  About.tsx        # Mission + activity cards
-  Events.tsx       # Dark events grid
-  PantherHacks.tsx # Hackathon feature section
-  Board.tsx        # Officer grid
-  Contact.tsx      # Social links CTA
-  Footer.tsx       # Footer
-  ScrollReveal.tsx # Intersection observer for .reveal elements
+  Shell.tsx        # Boot screen over the terminal; stays mounted across page changes
+  Boot.tsx         # "ssh chapmancs.club" boot screen (Esc skips it)
+  Terminal.tsx     # Menu, page panel, keyboard navigation, status bar
+  Marquee.tsx      # Scrolls text that's too long to fit, on hover
+  sections/        # Each page's content: Home, About, Events, PantherHacks, Board, Contact
+  sacred/          # SRCL components (Card, ActionListItem, Avatar, ...)
 
 lib/
-  boardData.ts     # Board member data — edit this to update names/photos
+  sections.ts      # Menu entries and their URLs
+  seo.ts           # Site URL and per-page title/description/canonical helper
+  content.ts       # Home stats, gallery photos, events, socials, PantherConnect link
+  people.ts        # Everyone who has served on the board
+  boardData.ts     # Board roster by year
 
 public/
-  cs_logo.png      # Club logo
+  board/           # Board member photos
+  events/          # Event card images
+  gallery/         # About section photo gallery
 ```
 
-## Customizing Board Members
+## Editing Content
 
-Edit `lib/boardData.ts`. Each member supports an optional `photo` field:
+Most of the site's text and images live in `lib/`, so content changes rarely touch components.
 
-```ts
-{ name: "Michael Masakayan", role: "President", photo: "/board/michael.jpg" }
-```
+### Board Members
 
-Place photos in `public/board/`.
+1. Add the person to `lib/people.ts`, keeping it alphabetical by first name. `photo` (a path under `public/`) and
+   `linkedin` are optional; members without a photo show their initials.
+
+   ```ts
+   export const pete_panther: Person = {
+     name: "Pete Panther",
+     linkedin: "https://www.linkedin.com/in/...",
+     photo: "/board/pete.webp",
+   };
+   ```
+
+2. Add them to the right year and tier in `lib/boardData.ts` with their role. Years are listed newest first.
+
+   ```ts
+   m(p.pete_panther, "Dictator");
+   ```
 
 ## Deployment
 
-### Vercel (recommended)
-```bash
-npm install -g vercel
-vercel
-```
-
-### Netlify
-Push to GitHub, connect the repo in Netlify. Build command: `npm run build`. Publish dir: `.next`.
-
-### GitHub Pages
-Use `next export` (set `output: "export"` in `next.config.ts`) for a fully static export.
-
-## Add Scroll Reveal
-
-Import `ScrollReveal` in your layout and add it inside `<body>`:
-
-```tsx
-import ScrollReveal from "@/components/ScrollReveal";
-// inside layout:
-<ScrollReveal />
-{children}
-```
+The site is hosted on Netlify. Build settings live in the Netlify dashboard; there's no `netlify.toml` in this repo.

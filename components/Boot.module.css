@@ -1,0 +1,76 @@
+.root {
+  --boot-red: #e0313f;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #000;
+  color: var(--boot-red);
+  text-shadow:
+    0 0 6px rgb(224 49 63 / 0.75),
+    0 0 18px rgb(224 49 63 / 0.35);
+  cursor: text;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* centered on the prompt; Boot.tsx lifts .stack as output prints below it, so the finished block is centered */
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: calc(100vw - 32px);
+}
+
+.stack {
+  position: relative;
+}
+
+.prompt {
+  font-size: clamp(22px, 4.5vw, 48px);
+  line-height: 1.2;
+  white-space: pre;
+}
+
+.cursor {
+  animation: blink 1s steps(1) infinite;
+}
+
+.output {
+  position: absolute;
+  top: calc(100% + 1.5em);
+  left: 0;
+  width: max-content;
+  max-width: calc(50vw + 50% - 16px);
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.output pre {
+  font-family: inherit;
+  white-space: pre-wrap;
+}
+
+.banner {
+  white-space: pre !important;
+  font-size: clamp(6px, 1.6vw, 13px);
+  line-height: 1.15;
+  margin: 0.75em 0;
+}
+
+.hint {
+  position: absolute;
+  bottom: 24px;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  opacity: 0.35;
+  text-shadow: none;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

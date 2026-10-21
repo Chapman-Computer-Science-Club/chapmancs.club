@@ -1,0 +1,10 @@
+overrides:
+  postcss: ^8
+
+allowBuilds:
+  unrs-resolver: true
+
+minimumReleaseAgeExclude:
+  - framer-motion@14.5.0
+  - motion-dom@14.5.0
+  - motion@14.5.0

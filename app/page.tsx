@@ -1,23 +1,12 @@
-import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Events from "@/components/Events";
-import PantherHacks from "@/components/PantherHacks";
-import Board from "@/components/Board";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+import { HomeSection } from "@/components/sections/Home";
+import { pageMetadata } from "@/lib/seo";
 
-export default function Home() {
-  return (
-    <>
-      <Nav />
-      <Hero />
-      <About />
-      <Events />
-      <PantherHacks />
-      <Board />
-      <Contact />
-      <Footer />
-    </>
-  );
+export const metadata = pageMetadata(
+  "/",
+  null,
+  "Chapman University's Computer Science Club brings together students from all disciplines to build skills, explore technology, and shape their future in tech."
+);
+
+export default function HomePage() {
+  return <HomeSection />;
 }
