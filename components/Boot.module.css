@@ -13,13 +13,17 @@
   touch-action: manipulation;
 }
 
-/* prompt stays at vertical center, boot content goes below */
+/* centered on the prompt; Boot.tsx lifts .stack as output prints below it, so the finished block is centered */
 .center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: calc(100vw - 32px);
+}
+
+.stack {
+  position: relative;
 }
 
 .prompt {

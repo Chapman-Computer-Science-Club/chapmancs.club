@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 
 import { playTypingSound, preloadTypingSounds } from "@/lib/typingSounds";
@@ -11,6 +11,8 @@ import BlockLoader from "./sacred/BlockLoader";
 const COMMAND = "ssh chapmancs.club";
 const TAP_TYPE_MS = 65;
 const AUTOPLAY_START_MS = 600;
+const LINE_MS = 350;
+const LOADER_MS = 1900;
 
 const BANNER = String.raw`
   ___ _  _   _   ___ __  __   _   _  _    ___ ___
@@ -22,10 +24,23 @@ export default function Boot({ onDone }: { onDone: () => void }) {
   const [typed, setTyped] = useState(0);
   const [auto, setAuto] = useState(false);
   const [connecting, setConnecting] = useState(false);
+  const [printed, setPrinted] = useState(0);
+  const [shift, setShift] = useState(0);
+  const promptRef = useRef<HTMLDivElement>(null);
+  const outputRef = useRef<HTMLDivElement>(null);
   const done = typed >= COMMAND.length;
   // Touch screens have no keyboard to type with, so the command plays on its own.
   const touch = useInitialMedia("(pointer: coarse)");
   const playing = auto || touch;
+
+  const lines = [
+    `Connecting to chapmancs.club (Chapman University, Orange, CA)...`,
+    `Authenticated as guest.`,
+    `Last login: ${new Date().toDateString()} from Swenson-Hall`,
+    BANNER,
+    `Welcome to the Chapman Computer Science Club.`,
+  ];
+  const lineCount = lines.length;
 
   // Desktop: each keystroke types the next character; once complete, Enter (or any key) connects.
   useEffect(() => {
@@ -61,6 +76,27 @@ export default function Boot({ onDone }: { onDone: () => void }) {
     return () => clearTimeout(id);
   }, [connecting, onDone]);
 
+  // print the output one line at a time, then the loader
+  useEffect(() => {
+    if (!connecting) return;
+    const ids = Array.from({ length: lineCount + 1 }, (_, i) =>
+      setTimeout(() => setPrinted(i + 1), i < lineCount ? 150 + i * LINE_MS : LOADER_MS)
+    );
+    return () => ids.forEach(clearTimeout);
+  }, [connecting, lineCount]);
+
+  // keep the prompt + printed output centered: lift it by half of what's been printed below the prompt
+  useEffect(() => {
+    const output = outputRef.current;
+    const prompt = promptRef.current;
+    if (!output || !prompt) return;
+    const ro = new ResizeObserver(() =>
+      setShift(output.offsetHeight ? (output.offsetTop + output.offsetHeight - prompt.offsetHeight) / 2 : 0)
+    );
+    ro.observe(output);
+    return () => ro.disconnect();
+  }, [connecting]);
+
   useEffect(preloadTypingSounds, []);
 
   useEffect(() => {
@@ -70,14 +106,6 @@ export default function Boot({ onDone }: { onDone: () => void }) {
   useEffect(() => {
     if (connecting) playTypingSound();
   }, [connecting]);
-
-  const lines = [
-    `Connecting to chapmancs.club (Chapman University, Orange, CA)...`,
-    `Authenticated as guest.`,
-    `Last login: ${new Date().toDateString()} from Swenson-Hall`,
-    BANNER,
-    `Welcome to the Chapman Computer Science Club.`,
-  ];
 
   return (
     <motion.div
@@ -89,32 +117,36 @@ export default function Boot({ onDone }: { onDone: () => void }) {
       transition={{ duration: 0.45, times: [0, 0.6, 1], ease: "easeIn" }}
     >
       <div className={styles.center}>
-        <div className={styles.prompt}>
-          <span>&gt; </span>
-          {COMMAND.slice(0, typed)}
-          <span className={styles.cursor} style={connecting ? { visibility: "hidden" } : undefined}>
-            _
-          </span>
-        </div>
-
-        {connecting && (
-          <div className={styles.output}>
-            {lines.map((line, i) => (
-              <motion.pre
-                key={i}
-                className={i === 3 ? styles.banner : undefined}
-                initial={{ opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 + i * 0.35, duration: 0.2 }}
-              >
-                {line}
-              </motion.pre>
-            ))}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.9 }}>
-              <BlockLoader mode={1} /> loading session
-            </motion.div>
+        <motion.div className={styles.stack} animate={{ y: -shift }} transition={{ duration: 0.2, ease: "easeOut" }}>
+          <div className={styles.prompt} ref={promptRef}>
+            <span>&gt; </span>
+            {COMMAND.slice(0, typed)}
+            <span className={styles.cursor} style={connecting ? { visibility: "hidden" } : undefined}>
+              _
+            </span>
           </div>
-        )}
+
+          {connecting && (
+            <div className={styles.output} ref={outputRef}>
+              {lines.slice(0, printed).map((line, i) => (
+                <motion.pre
+                  key={i}
+                  className={i === 3 ? styles.banner : undefined}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {line}
+                </motion.pre>
+              ))}
+              {printed > lineCount && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <BlockLoader mode={1} /> loading session
+                </motion.div>
+              )}
+            </div>
+          )}
+        </motion.div>
       </div>
 
       {!connecting && !playing && (
