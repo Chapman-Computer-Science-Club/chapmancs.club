@@ -12,7 +12,10 @@ export const boardYears: { year: string; tiers: { label: string; members: BoardM
   {
     year: "'27",
     tiers: [
-      { label: "Leadership", members: [m(p.dylan_ravel, "Co-President"), m(p.daniel_tsivkovski, "Co-President (Fall)")] },
+      {
+        label: "Leadership",
+        members: [m(p.dylan_ravel, "Co-President"), m(p.daniel_tsivkovski, "Co-President (Fall)")],
+      },
       {
         label: "Internal Team",
         members: [
@@ -41,7 +44,10 @@ export const boardYears: { year: string; tiers: { label: string; members: BoardM
   {
     year: "'26",
     tiers: [
-      { label: "Executive Leadership", members: [m(p.nataniel_farzan, "Co-President"), m(p.jeffrey_bok, "Co-President")] },
+      {
+        label: "Executive Leadership",
+        members: [m(p.nataniel_farzan, "Co-President"), m(p.jeffrey_bok, "Co-President")],
+      },
       {
         label: "Vice Presidents",
         members: [
@@ -59,10 +65,17 @@ export const boardYears: { year: string; tiers: { label: string; members: BoardM
           m(p.thaw_han, "Special Events Coordinator"),
         ],
       },
-      { label: "Hackathon & Conference", members: [m(p.joel_escobar, "Hackathon Coordinator"), m(p.hemi_shah, "Conference Coordinator")] },
+      {
+        label: "Hackathon & Conference",
+        members: [m(p.joel_escobar, "Hackathon Coordinator"), m(p.hemi_shah, "Conference Coordinator")],
+      },
       {
         label: "Marketing",
-        members: [m(p.kalin_richardson, "Marketing Director"), m(p.lydia_moore, "Marketing Chair"), m(p.lynis_pierre_louis, "Marketing Chair")],
+        members: [
+          m(p.kalin_richardson, "Marketing Director"),
+          m(p.lydia_moore, "Marketing Chair"),
+          m(p.lynis_pierre_louis, "Marketing Chair"),
+        ],
       },
     ],
   },

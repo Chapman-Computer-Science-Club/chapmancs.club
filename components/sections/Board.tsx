@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
+
+import { boardYears } from "@/lib/boardData";
+import Marquee from "../Marquee";
 import ActionListItem from "../sacred/ActionListItem";
 import Avatar from "../sacred/Avatar";
-import Marquee from "../Marquee";
-import { boardYears } from "@/lib/boardData";
 import s from "./Sections.module.css";
 
 const initials = (name: string) => {
@@ -45,7 +46,13 @@ export function BoardSection() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: n++ * 0.035 }}
                 >
-                  <Avatar src={m.photo} initials={initials(m.name)} href={m.linkedin} target="_blank" style={{ width: "6ch", height: "3.75rem" }}>
+                  <Avatar
+                    src={m.photo}
+                    initials={initials(m.name)}
+                    href={m.linkedin}
+                    target="_blank"
+                    style={{ width: "6ch", height: "3.75rem" }}
+                  >
                     <div>{m.name}</div>
                     <Marquee className={s.role}>{m.role}</Marquee>
                   </Avatar>

@@ -3,8 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
-import ActionListItem from "../sacred/ActionListItem";
+
 import { events } from "@/lib/content";
+import ActionListItem from "../sacred/ActionListItem";
 import s from "./Sections.module.css";
 
 export function EventsSection() {
@@ -17,7 +18,13 @@ export function EventsSection() {
       <div className={s.split}>
         <div className={s.actions}>
           {events.map((ev, i) => (
-            <div key={ev.title} className={s.pick} data-active={i === sel || undefined} onFocus={() => setSel(i)} onMouseEnter={() => setSel(i)}>
+            <div
+              key={ev.title}
+              className={s.pick}
+              data-active={i === sel || undefined}
+              onFocus={() => setSel(i)}
+              onMouseEnter={() => setSel(i)}
+            >
               <ActionListItem icon={ev.icon} onClick={() => setSel(i)}>
                 {ev.title}
               </ActionListItem>
@@ -25,7 +32,14 @@ export function EventsSection() {
           ))}
         </div>
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div key={sel} className={s.stack} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}>
+          <motion.div
+            key={sel}
+            className={s.stack}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
             <div className={s.frame}>
               <Image src={e.image} alt="" fill sizes="(min-width: 900px) 40vw, 100vw" className={s.cover} />
             </div>

@@ -18,7 +18,7 @@
   &:hover,
   &:active {
     &::before {
-      content: '';
+      content: "";
       top: 0;
       left: 0;
       right: 0;
@@ -51,7 +51,7 @@ a.root {
     background-position: 50% 50%;
     background-repeat: no-repeat;
     &::before {
-      content: '';
+      content: "";
       top: 0;
       left: 0;
       right: 0;

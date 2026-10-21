@@ -1,20 +1,20 @@
-import styles from './SimpleTable.module.css';
+import * as React from "react";
 
-import * as React from 'react';
+import styles from "./SimpleTable.module.css";
 
 interface SimpleTableProps {
   data: string[][];
-  align?: ('left' | 'right')[];
+  align?: ("left" | "right")[];
 }
 
-const STATUS_OK = new Set(['ACTIVE', 'OPEN', 'APPROVED']);
-const STATUS_OFF = new Set(['CLOSED', 'PAID', 'SUSPENDED']);
+const STATUS_OK = new Set(["ACTIVE", "OPEN", "APPROVED"]);
+const STATUS_OFF = new Set(["CLOSED", "PAID", "SUSPENDED"]);
 
 const SimpleTable: React.FC<SimpleTableProps> = ({ data, align }) => {
   if (!data || data.length === 0) return null;
   const [header, ...rows] = data;
 
-  const alignAt = (col: number) => (align && align[col] === 'right' ? styles.alignRight : undefined);
+  const alignAt = (col: number) => (align && align[col] === "right" ? styles.alignRight : undefined);
 
   return (
     <div className={styles.scrollWrapper}>
@@ -35,7 +35,7 @@ const SimpleTable: React.FC<SimpleTableProps> = ({ data, align }) => {
                 let statusClass: string | undefined;
                 if (STATUS_OK.has(cell)) statusClass = styles.statusOk;
                 else if (STATUS_OFF.has(cell)) statusClass = styles.statusOff;
-                const className = [alignAt(ci), statusClass].filter(Boolean).join(' ') || undefined;
+                const className = [alignAt(ci), statusClass].filter(Boolean).join(" ") || undefined;
                 return (
                   <td key={ci} className={className}>
                     {cell}

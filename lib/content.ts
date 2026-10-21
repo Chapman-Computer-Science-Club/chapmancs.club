@@ -22,11 +22,36 @@ export const gallery = [
 ];
 
 export const events = [
-  { icon: "WS", title: "Workshops", desc: "Hands-on technical workshops covering tools, frameworks, and fundamentals you won't find in the classroom.", image: "/events/workshops.JPG" },
-  { icon: "CV", title: "Resume Reviews", desc: "Get your resume critiqued by peers and guests with real industry experience before it lands in a recruiter's hands.", image: "/events/resume.jpg" },
-  { icon: "SE", title: "Speaker Events", desc: "Industry professionals join us for talks and Q&As on careers, specialties, and what working in tech actually looks like.", image: "/events/speakers.JPG" },
-  { icon: "PH", title: "Hackathons", desc: "Compete, collaborate, and build something in 24 hours. We host PantherHacks every year and coordinate attendance at others.", image: "/events/hackathons.JPG" },
-  { icon: "BD", title: "Bonding Activities", desc: "Game nights, movie nights, coffee runs, and other ways to hang out with members outside of meetings.", image: "/events/bonding.JPG" },
+  {
+    icon: "WS",
+    title: "Workshops",
+    desc: "Hands-on technical workshops covering tools, frameworks, and fundamentals you won't find in the classroom.",
+    image: "/events/workshops.JPG",
+  },
+  {
+    icon: "CV",
+    title: "Resume Reviews",
+    desc: "Get your resume critiqued by peers and guests with real industry experience before it lands in a recruiter's hands.",
+    image: "/events/resume.jpg",
+  },
+  {
+    icon: "SE",
+    title: "Speaker Events",
+    desc: "Industry professionals join us for talks and Q&As on careers, specialties, and what working in tech actually looks like.",
+    image: "/events/speakers.JPG",
+  },
+  {
+    icon: "PH",
+    title: "Hackathons",
+    desc: "Compete, collaborate, and build something in 24 hours. We host PantherHacks every year and coordinate attendance at others.",
+    image: "/events/hackathons.JPG",
+  },
+  {
+    icon: "BD",
+    title: "Bonding Activities",
+    desc: "Game nights, movie nights, coffee runs, and other ways to hang out with members outside of meetings.",
+    image: "/events/bonding.JPG",
+  },
 ];
 
 export const socials = [

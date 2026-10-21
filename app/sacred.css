@@ -124,12 +124,12 @@ a {
 
 ul {
   list-style-position: inside;
-  list-style-type: '▪';
+  list-style-type: "▪";
   text-indent: -1ch;
 }
 
 ol {
-  list-style-type: '';
+  list-style-type: "";
   list-style-position: inside;
   counter-reset: cupcake;
   text-indent: -1ch;
@@ -148,7 +148,7 @@ ol li {
 }
 
 ul li:before {
-  content: ' ';
+  content: " ";
   display: inline-block;
   width: 1ch;
   height: 0;
@@ -156,7 +156,7 @@ ul li:before {
 }
 
 ol li:before {
-  content: counters(cupcake, '.') '. ';
+  content: counters(cupcake, ".") ". ";
 }
 
 article,
@@ -255,7 +255,7 @@ body {
   --color-gray-23-border-alpha: rgba(58, 58, 58, 0.3);
   --color-brand-alpha-50: rgba(228, 242, 33, 0.5);
 
-  --font-family-mono: 'FiraCode-Regular', Consolas, monaco, monospace;
+  --font-family-mono: "FiraCode-Regular", Consolas, monaco, monospace;
 
   --theme-line-height-base: 1.25;
   --font-size: 16px;

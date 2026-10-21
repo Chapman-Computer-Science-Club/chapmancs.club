@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
+
 import { gallery } from "@/lib/content";
 import s from "./Sections.module.css";
 
@@ -30,8 +31,22 @@ function Gallery() {
     >
       <div className={s.frame}>
         <AnimatePresence initial={false}>
-          <motion.div key={i} className={s.fill} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }}>
-            <Image src={gallery[i]} alt="" fill sizes="(min-width: 640px) 60vw, 100vw" className={s.cover} priority={i === 0} />
+          <motion.div
+            key={i}
+            className={s.fill}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Image
+              src={gallery[i]}
+              alt=""
+              fill
+              sizes="(min-width: 640px) 60vw, 100vw"
+              className={s.cover}
+              priority={i === 0}
+            />
           </motion.div>
         </AnimatePresence>
       </div>

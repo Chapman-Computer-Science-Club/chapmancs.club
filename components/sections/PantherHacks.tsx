@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import ActionListItem from "../sacred/ActionListItem";
 import Badge from "../sacred/Badge";
 import s from "./Sections.module.css";
@@ -21,7 +22,13 @@ export function PantherHacksSection() {
         </ActionListItem>
       </div>
       <figure className={s.frame}>
-        <Image src="/PantherHacks.JPG" alt="PantherHacks hackathon" fill sizes="(min-width: 900px) 40vw, 100vw" className={s.cover} />
+        <Image
+          src="/PantherHacks.JPG"
+          alt="PantherHacks hackathon"
+          fill
+          sizes="(min-width: 900px) 40vw, 100vw"
+          className={s.cover}
+        />
       </figure>
     </div>
   );

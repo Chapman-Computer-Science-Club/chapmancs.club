@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+
 import ActionListItem from "./sacred/ActionListItem";
 import Card from "./sacred/Card";
 import { AboutSection } from "./sections/About";
@@ -36,7 +37,11 @@ function toggleTheme() {
 // Retypes its text whenever it changes, like a shell echoing a new cwd.
 function Typed({ text }: { text: string }) {
   const [n, setN] = useState(0);
-  useEffect(() => setN(0), [text]);
+  const [prevText, setPrevText] = useState(text);
+  if (text !== prevText) {
+    setPrevText(text);
+    setN(0);
+  }
   useEffect(() => {
     if (n >= text.length) return;
     const id = setTimeout(() => setN(n + 1), 18);
@@ -69,7 +74,9 @@ export default function Terminal() {
   }, []);
 
   const focusables = () =>
-    Array.from(bodyRef.current?.querySelectorAll<HTMLElement>(`[data-section="${SECTIONS[idx].id}"] ${FOCUSABLE}`) ?? []);
+    Array.from(
+      bodyRef.current?.querySelectorAll<HTMLElement>(`[data-section="${SECTIONS[idx].id}"] ${FOCUSABLE}`) ?? []
+    );
 
   // Keep DOM focus on the highlighted menu entry while the menu zone is active.
   useEffect(() => {
@@ -129,9 +136,7 @@ export default function Terminal() {
       transition={{ duration: 0.6, delay: 0.3 }}
     >
       <header className={styles.top}>
-        <span>
-          guest@chapmancs.club:~/{section.id === "home" ? "" : section.id}$
-        </span>
+        <span>guest@chapmancs.club:~/{section.id === "home" ? "" : section.id}$</span>
         <Clock />
       </header>
 

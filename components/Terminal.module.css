@@ -80,7 +80,6 @@
   background: var(--theme-border);
 }
 
-
 .body {
   min-height: 0;
   overflow-y: auto;

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import styles from './Badge.module.css';
+import * as React from "react";
 
-import * as React from 'react';
+import styles from "./Badge.module.css";
 
 interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   children?: React.ReactNode;

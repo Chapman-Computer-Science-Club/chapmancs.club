@@ -1,6 +1,6 @@
-import styles from './Card.module.css';
+import * as React from "react";
 
-import * as React from 'react';
+import styles from "./Card.module.css";
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -8,7 +8,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   mode?: string | any;
 }
 
-const Card: React.FC<CardProps> = ({ children, mode, title, style, ...rest }) => {
+const Card: React.FC<CardProps> = ({ children, mode, title, style }) => {
   let titleElement = (
     <header className={styles.action}>
       <div className={styles.left} aria-hidden="true"></div>
@@ -17,7 +17,7 @@ const Card: React.FC<CardProps> = ({ children, mode, title, style, ...rest }) =>
     </header>
   );
 
-  if (mode === 'left') {
+  if (mode === "left") {
     titleElement = (
       <header className={styles.action}>
         <div className={styles.leftCorner} aria-hidden="true"></div>
@@ -27,7 +27,7 @@ const Card: React.FC<CardProps> = ({ children, mode, title, style, ...rest }) =>
     );
   }
 
-  if (mode === 'right') {
+  if (mode === "right") {
     titleElement = (
       <header className={styles.action}>
         <div className={styles.left} aria-hidden="true"></div>

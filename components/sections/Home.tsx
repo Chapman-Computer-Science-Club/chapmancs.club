@@ -1,7 +1,8 @@
 import Image from "next/image";
+
+import { heroStats, PANTHER_CONNECT } from "@/lib/content";
 import ActionListItem from "../sacred/ActionListItem";
 import SimpleTable from "../sacred/SimpleTable";
-import { heroStats, PANTHER_CONNECT } from "@/lib/content";
 import s from "./Sections.module.css";
 
 type SectionProps = { go: (id: string) => void };

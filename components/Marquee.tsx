@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+
 import s from "./Marquee.module.css";
 
 // Single-line text that ellipsizes when it overflows, and loops continuously while hovered/focused

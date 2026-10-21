@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Mono } from "next/font/google";
+
 import "./sacred.css";
 import "./globals.css";
 
@@ -11,8 +12,7 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   title: "Chapman Computer Science Club",
-  description:
-    "Chapman University's CS Club - connect, collaborate, and create in the field of computer science.",
+  description: "Chapman University's CS Club - connect, collaborate, and create in the field of computer science.",
   icons: {
     icon: "/old_cs_logo.png",
     shortcut: "/old_cs_logo.png",

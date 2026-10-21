@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import BlockLoader from "./sacred/BlockLoader";
+
 import styles from "./Boot.module.css";
+import BlockLoader from "./sacred/BlockLoader";
 
 const COMMAND = "ssh chapmancs.club";
 const TAP_TYPE_MS = 65;
