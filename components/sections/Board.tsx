@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import ActionListItem from "../sacred/ActionListItem";
 import Avatar from "../sacred/Avatar";
+import Marquee from "../Marquee";
 import { boardYears } from "@/lib/boardData";
 import s from "./Sections.module.css";
 
@@ -39,13 +40,14 @@ export function BoardSection() {
                 <motion.div
                   key={m.name + m.role}
                   className={s.member}
+                  data-marquee-host
                   initial={{ opacity: 0, x: -6 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: n++ * 0.035 }}
                 >
                   <Avatar src={m.photo} initials={initials(m.name)} href={m.linkedin} target="_blank" style={{ width: "6ch", height: "3.75rem" }}>
                     <div>{m.name}</div>
-                    <div className={s.role}>{m.role}</div>
+                    <Marquee className={s.role}>{m.role}</Marquee>
                   </Avatar>
                 </motion.div>
               ))}

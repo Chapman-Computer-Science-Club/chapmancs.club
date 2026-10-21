@@ -1,0 +1,30 @@
+.root {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* at rest (or with reduced motion) show the ellipsis, scroll on hover/focus */
+.root [aria-hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :is(.root:hover, [data-marquee-host]:is(:hover, :focus-within) .root) [aria-hidden] {
+    display: inline;
+  }
+
+  :is(.root:hover, [data-marquee-host]:is(:hover, :focus-within) .root) > span[data-scroll] {
+    display: inline-block;
+    animation: marquee var(--dur) linear infinite;
+  }
+}
+
+.gap {
+  display: inline-block;
+  width: 4ch;
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
