@@ -72,7 +72,7 @@ Most of the site's text and images live in `lib/`, so content changes rarely tou
    export const pete_panther: Person = {
      name: "Pete Panther",
      linkedin: "https://www.linkedin.com/in/...",
-     photo: "/board/pete.jpeg",
+     photo: "/board/pete.webp",
    };
    ```
 

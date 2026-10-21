@@ -23,7 +23,7 @@ export function PantherHacksSection() {
       </div>
       <figure className={s.frame} data-mode="photo">
         <Image
-          src="/PantherHacks.JPG"
+          src="/PantherHacks.webp"
           alt="PantherHacks hackathon"
           fill
           sizes="(min-width: 900px) 40vw, 100vw"

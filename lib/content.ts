@@ -14,16 +14,16 @@ export const heroStats = [
 ];
 
 export const gallery = [
-  "/gallery/photo1.JPG",
-  "/gallery/photo2.JPG",
-  "/gallery/photo3.JPG",
-  "/gallery/photo5.JPG",
-  "/gallery/photo6.jpg",
-  "/gallery/photo7.jpg",
-  "/gallery/photo8.JPG",
-  "/gallery/photo9.JPG",
-  "/gallery/photo10.JPG",
-  "/gallery/photo11.JPG",
+  "/gallery/photo1.webp",
+  "/gallery/photo2.webp",
+  "/gallery/photo3.webp",
+  "/gallery/photo5.webp",
+  "/gallery/photo6.webp",
+  "/gallery/photo7.webp",
+  "/gallery/photo8.webp",
+  "/gallery/photo9.webp",
+  "/gallery/photo10.webp",
+  "/gallery/photo11.webp",
 ];
 
 export const events = [
@@ -31,31 +31,31 @@ export const events = [
     icon: "WS",
     title: "Workshops",
     desc: "Hands-on technical workshops covering tools, frameworks, and fundamentals you won't find in the classroom.",
-    image: "/events/workshops.JPG",
+    image: "/events/workshops.webp",
   },
   {
     icon: "CV",
     title: "Resume Reviews",
     desc: "Get your resume critiqued by peers and guests with real industry experience before it lands in a recruiter's hands.",
-    image: "/events/resume.jpg",
+    image: "/events/resume.webp",
   },
   {
     icon: "SE",
     title: "Speaker Events",
     desc: "Industry professionals join us for talks and Q&As on careers, specialties, and what working in tech actually looks like.",
-    image: "/events/speakers.JPG",
+    image: "/events/speakers.webp",
   },
   {
     icon: "PH",
     title: "Hackathons",
     desc: "Compete, collaborate, and build something in 24 hours. We host PantherHacks every year and coordinate attendance at others.",
-    image: "/events/hackathons.JPG",
+    image: "/events/hackathons.webp",
   },
   {
     icon: "BD",
     title: "Bonding Activities",
     desc: "Game nights, movie nights, coffee runs, and other ways to hang out with members outside of meetings.",
-    image: "/events/bonding.JPG",
+    image: "/events/bonding.webp",
   },
 ];
 
