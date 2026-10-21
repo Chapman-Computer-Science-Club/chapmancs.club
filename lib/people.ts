@@ -196,7 +196,10 @@ export const savana_chou: Person = {
   linkedin: "https://www.linkedin.com/in/savana-chou/",
   photo: "/board/savana.jpeg",
 };
+
+// TODO: Find Sharon's Picture and LinkedIn
 export const sharon_chang: Person = { name: "Sharon Chang" };
+
 export const thaw_han: Person = {
   name: "Thaw Han",
   linkedin: "https://www.linkedin.com/in/thaw-han-467367339/",
