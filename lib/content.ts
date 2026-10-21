@@ -2,6 +2,7 @@ export const PANTHER_CONNECT = "https://pantherconnect.chapman.edu/COMPSC/club_s
 export const INSTAGRAM = "https://www.instagram.com/chapmancsclub/";
 export const LINKEDIN = "https://www.linkedin.com/company/chapman-computer-science-club/";
 export const DISCORD = "http://discord.gg/9NSwX5PxqC";
+export const GITHUB = "https://github.com/Chapman-Computer-Science-Club/chapmancs.club";
 export const LINKTREE = "https://linktr.ee/chapmancsclub";
 
 export const heroStats = [
@@ -64,5 +65,6 @@ export const socials = [
   { icon: "@", label: "Instagram", href: INSTAGRAM },
   { icon: "in", label: "LinkedIn", href: LINKEDIN },
   { icon: "#", label: "Discord", href: DISCORD },
+  { icon: "//", label: "GitHub", href: GITHUB },
   { icon: "*", label: "Linktree", href: LINKTREE },
 ];
