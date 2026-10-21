@@ -101,12 +101,9 @@
   }
 
   .menuList {
-    display: flex;
-    gap: 1ch;
-  }
-
-  .row > :last-child {
-    flex: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17ch, 1fr));
+    column-gap: 1ch;
   }
 
   .gutter,
