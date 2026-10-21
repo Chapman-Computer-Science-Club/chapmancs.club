@@ -1,0 +1,117 @@
+.shell {
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: 28ch minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 1.25rem 2ch;
+  /* enforce a max width for the body through padding */
+  --pad: max(2ch, calc((100vw - 1400px) / 2));
+  padding: 0 var(--pad);
+}
+
+/* Faint CRT scanlines over everything. */
+.shell::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  background: repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / 0.05) 2px 3px);
+}
+
+.top,
+.status {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  gap: 2ch;
+  padding: 0 1ch;
+  margin: 0 calc(-1 * var(--pad));
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.top {
+  background: var(--accent);
+  color: var(--theme-background);
+}
+
+.status {
+  background: var(--theme-button-background);
+}
+
+.status b {
+  color: var(--accent);
+}
+
+.key {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.menu {
+  min-height: 0;
+}
+
+.row {
+  display: flex;
+}
+
+.row > :last-child {
+  flex: 1;
+}
+
+.gutter {
+  width: 2ch;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+
+.row[data-active] figure {
+  background: var(--accent);
+  color: var(--theme-background);
+}
+
+.row[data-active] > :last-child > span {
+  background: var(--theme-border);
+}
+
+
+.body {
+  min-height: 0;
+  overflow-y: auto;
+  outline: 0;
+  padding-bottom: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    padding: 0 1ch;
+    gap: 0.75rem;
+  }
+
+  .top,
+  .status {
+    margin: 0 -1ch;
+  }
+
+  .menuList {
+    display: flex;
+    gap: 1ch;
+  }
+
+  .row > :last-child {
+    flex: none;
+  }
+
+  .gutter,
+  .hints {
+    display: none;
+  }
+}

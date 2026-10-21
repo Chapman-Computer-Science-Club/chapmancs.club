@@ -1,0 +1,83 @@
+/*
+NOTE(jimmylee):
+Simple fluid table for Sacred Computer. The CLI framework's `formatRow` +
+`cardHeaderRow` primitives map onto this exact CSS surface, so the React port and
+the terminal port render the same rows from the same data array. Background tokens
+reference the ANSI palette in global.css so the colors are byte-equal to
+scripts/cli/colors.json (#585858 / #00ff00 / #a8a8a8).
+*/
+
+/*
+NOTE(jimmylee):
+overflow-y is pinned to hidden because setting only overflow-x: auto makes the
+browser compute overflow-y to auto, which paints a spurious native vertical bar
+even when every row fits. The horizontal bar reuses the same custom scrollbar as
+global.css (1ch wide, one line tall) so it reads as sacred, not native.
+*/
+.scrollWrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--theme-border) var(--theme-background);
+}
+
+.scrollWrapper::-webkit-scrollbar {
+  background: transparent;
+  height: calc(var(--theme-line-height-base) * 1rem);
+  width: 1ch;
+}
+
+.scrollWrapper::-webkit-scrollbar-track {
+  background: var(--theme-background);
+}
+
+.scrollWrapper::-webkit-scrollbar-thumb {
+  background: var(--theme-border);
+}
+
+.scrollWrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-border);
+}
+
+.root {
+  padding: 0;
+  border-collapse: collapse;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  width: 100%;
+}
+
+.root td {
+  padding: 0 2ch 0 0;
+  vertical-align: top;
+}
+
+.root td:last-child {
+  padding-right: 0;
+}
+
+.root thead td {
+  background: var(--ansi-240-gray-35);
+  color: var(--color-white);
+  font-weight: 400;
+}
+
+.root tbody tr:focus {
+  background: var(--theme-focused-foreground);
+  outline: 0;
+}
+
+.alignRight {
+  text-align: right;
+}
+
+.statusOk {
+  color: var(--ansi-10-lime);
+  font-weight: 700;
+}
+
+.statusOff {
+  color: var(--ansi-248-gray-66);
+}

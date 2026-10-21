@@ -1,23 +1,24 @@
-import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Events from "@/components/Events";
-import PantherHacks from "@/components/PantherHacks";
-import Board from "@/components/Board";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
+import { AnimatePresence } from "motion/react";
+import Boot from "@/components/Boot";
+import Terminal from "@/components/Terminal";
 
 export default function Home() {
+  const [booted, setBooted] = useState(false);
+
+  // boot plays on every load, turn off for reduced motion
+  useEffect(() => {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) setBooted(true);
+  }, []);
+
+  const finish = useCallback(() => setBooted(true), []);
+
   return (
     <>
-      <Nav />
-      <Hero />
-      <About />
-      <Events />
-      <PantherHacks />
-      <Board />
-      <Contact />
-      <Footer />
+      <AnimatePresence>{!booted && <Boot key="boot" onDone={finish} />}</AnimatePresence>
+      {booted && <Terminal />}
     </>
   );
 }
