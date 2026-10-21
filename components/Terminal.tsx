@@ -270,7 +270,7 @@ export default function Terminal({
             data-section={pathname}
             initial={navigated ? { opacity: 0, x: 10, filter: "blur(3px)" } : false}
             animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.14 }}
+            transition={{ duration: 0.14, filter: { duration: 0.3, ease: "easeOut" } }}
           >
             {children}
           </motion.div>
