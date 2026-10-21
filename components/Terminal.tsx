@@ -131,9 +131,16 @@ export default function Terminal() {
   return (
     <motion.div
       className={styles.shell}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: [0, 1, 0.35, 1, 0.7, 1] }}
-      transition={{ duration: 0.6, delay: 0.3 }}
+      initial={{ opacity: 0, filter: "blur(6px)" }}
+      animate={{
+        opacity: 1,
+        filter: ["blur(6px)", "blur(6px)", "blur(0px)"],
+        transitionEnd: { filter: "none" },
+      }}
+      transition={{
+        opacity: { duration: 0.3, ease: "easeOut" },
+        filter: { duration: 0.75, times: [0, 0.3, 1], ease: "easeOut" },
+      }}
     >
       <header className={styles.top}>
         <span>guest@chapmancs.club:~/{section.id === "home" ? "" : section.id}$</span>

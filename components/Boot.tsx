@@ -81,7 +81,9 @@ export default function Boot({ onDone }: { onDone: () => void }) {
         <div className={styles.prompt}>
           <span>&gt; </span>
           {COMMAND.slice(0, typed)}
-          {!connecting && <span className={styles.cursor}>_</span>}
+          <span className={styles.cursor} style={connecting ? { visibility: "hidden" } : undefined}>
+            _
+          </span>
         </div>
 
         {connecting && (
