@@ -24,9 +24,11 @@ export function HomeSection({ go }: SectionProps) {
             skills, explore technology, and shape their future in tech.
           </p>
         </div>
-        <Image src="/old_cs_logo.png" alt="" width={180} height={180} className={s.logo} priority />
+        <Image src="/old_cs_logo.png" alt="" width={180} height={180} className={s.logo} priority data-mode="logo" />
       </div>
-      <SimpleTable data={heroStats} align={["left", "right"]} />
+      <div data-mode="stat">
+        <SimpleTable data={heroStats} align={["left", "right"]} />
+      </div>
       <div className={s.actions}>
         <div className={s.cta}>
           <ActionListItem icon="↗" href={PANTHER_CONNECT} target="_blank">

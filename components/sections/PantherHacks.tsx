@@ -21,7 +21,7 @@ export function PantherHacksSection() {
           Visit pantherhacks.dev
         </ActionListItem>
       </div>
-      <figure className={s.frame}>
+      <figure className={s.frame} data-mode="photo">
         <Image
           src="/PantherHacks.JPG"
           alt="PantherHacks hackathon"

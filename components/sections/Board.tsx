@@ -36,7 +36,7 @@ export function BoardSection() {
       <p className={s.muted}>
         Our executive board keeps the club running. Interested in joining the board? Come to a meeting and get involved.
       </p>
-      <div className={s.years} ref={yearsRef} onKeyDown={onYearKey}>
+      <div className={s.years} ref={yearsRef} onKeyDown={onYearKey} data-mode="year">
         {boardYears.map((y, i) => (
           <div key={y.year} className={s.pick} data-active={i === sel || undefined} onFocus={() => setSel(i)}>
             <ActionListItem icon={i === sel ? "●" : "○"} tabIndex={i === sel ? 0 : -1} onClick={() => setSel(i)}>
@@ -62,6 +62,7 @@ export function BoardSection() {
                     key={m.name + m.role}
                     className={s.member}
                     data-marquee-host
+                    data-mode="person"
                     initial={{ opacity: 0, x: -6 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: n++ * 0.035 }}

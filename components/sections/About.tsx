@@ -21,6 +21,7 @@ function Gallery() {
   return (
     <div
       className={s.gallery}
+      data-mode="photo"
       tabIndex={0}
       onClick={next}
       onKeyDown={(e) => e.key === "Enter" && next()}

@@ -66,6 +66,16 @@ function Caret() {
   );
 }
 
+// status bar label for an element. its nearest data-mode tag, else whether it's a link or button
+function modeOf(el: EventTarget | null) {
+  if (!(el instanceof Element)) return null;
+  const tagged = el.closest<HTMLElement>("[data-mode]")?.dataset.mode;
+  if (tagged) return tagged;
+  if (el.closest("a[href]")) return "link";
+  if (el.closest("button, [role=button]")) return "button";
+  return null;
+}
+
 function Clock() {
   const [now, setNow] = useState("");
   useEffect(() => {
@@ -81,6 +91,7 @@ export default function Terminal() {
   const [idx, setIdx] = useState(0);
   const [contactIdx, setContactIdx] = useState(0);
   const [zone, setZone] = useState<"menu" | "body">("menu");
+  const [mode, setMode] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLElement>(null);
@@ -182,6 +193,8 @@ export default function Terminal() {
         opacity: { duration: 0.3, ease: "easeOut" },
         filter: { duration: 0.75, times: [0, 0.3, 1], ease: "easeOut" },
       }}
+      onFocus={(e) => setMode(modeOf(e.target))}
+      onPointerOver={(e) => setMode(modeOf(e.target) ?? modeOf(document.activeElement))}
     >
       <header className={styles.top}>
         <span>guest@chapmancs.club:~/{section.id === "home" ? "" : section.id}$</span>
@@ -189,7 +202,7 @@ export default function Terminal() {
       </header>
 
       <div className={styles.side}>
-        <nav className={styles.menu} ref={menuRef} onFocus={() => setZone("menu")}>
+        <nav className={styles.menu} ref={menuRef} onFocus={() => setZone("menu")} data-mode="menu">
           <Card title="MENU" mode="left">
             <div className={styles.menuList} role="menu">
               {SECTIONS.map((s, i) => (
@@ -253,7 +266,9 @@ export default function Terminal() {
         <span className={styles.hints}>
           <b>↑↓</b> select <b>→</b> open <b>←</b> back <b>1-6</b> jump
         </span>
-        <span className={styles.hints}>{zone === "menu" ? "-- MENU --" : "-- BODY --"}</span>
+        <span className={styles.hints}>
+          -- <Typed text={(mode ?? zone).toUpperCase()} /> --
+        </span>
         <button type="button" className={styles.key} onClick={toggleMuted}>
           <b>m</b> {muted ? "unmute" : "mute"}
         </button>

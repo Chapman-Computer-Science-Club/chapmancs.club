@@ -22,6 +22,7 @@ export function EventsSection() {
               key={ev.title}
               className={s.pick}
               data-active={i === sel || undefined}
+              data-mode="event"
               onFocus={() => setSel(i)}
               onMouseEnter={() => setSel(i)}
             >
@@ -40,7 +41,7 @@ export function EventsSection() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
           >
-            <div className={s.frame}>
+            <div className={s.frame} data-mode="photo">
               <Image src={e.image} alt="" fill sizes="(min-width: 900px) 40vw, 100vw" className={s.cover} />
             </div>
             <p>
