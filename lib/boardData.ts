@@ -73,6 +73,7 @@ export const boardYears: { year: string; tiers: { label: string; members: BoardM
         label: "Marketing",
         members: [
           m(p.kalin_richardson, "Marketing Director"),
+          m(p.sam_fago, "Marketing Chair (Fall)"),
           m(p.lydia_moore, "Marketing Chair"),
           m(p.lynis_pierre_louis, "Marketing Chair"),
         ],

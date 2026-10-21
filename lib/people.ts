@@ -6,14 +6,26 @@ export interface Person {
   linkedin?: string;
 }
 
-export const andy_nguyen: Person = { name: "Andy Nguyen" };
+export const andy_nguyen: Person = {
+  name: "Andy Nguyen",
+  linkedin: "https://www.linkedin.com/in/anadynguyen/",
+  photo: "/board/andy.png",
+};
 export const benjamin_chan: Person = {
   name: "Benjamin Chan",
   linkedin: "https://www.linkedin.com/in/benjamin-k-chan/",
   photo: "/board/benjamin.jpeg",
 };
-export const brent_ortizo: Person = { name: "Brent Matthew Ortizo" };
-export const chandrika_bakshi: Person = { name: "Chandrika Bakshi" };
+export const brent_ortizo: Person = {
+  name: "Brent Matthew Ortizo",
+  linkedin: "https://www.linkedin.com/in/brent-matthew-ortizo-42b599252/",
+  photo: "/board/brent.jpeg",
+};
+export const chandrika_bakshi: Person = {
+  name: "Chandrika Bakshi",
+  linkedin: "https://www.linkedin.com/in/chandrikabakshi/",
+  photo: "/board/chandrika.png",
+};
 export const connor_zermeno: Person = {
   name: "Connor Zermeno",
   linkedin: "https://www.linkedin.com/in/connor-zermeno-ab5612329/",
@@ -29,39 +41,71 @@ export const daniel_tsivkovski: Person = {
   linkedin: "https://www.linkedin.com/in/danieltsivkovski/",
   photo: "/board/danielT.jpeg",
 };
-export const divi_newton: Person = { name: "Divi Newton" };
+export const divi_newton: Person = {
+  name: "Divi Newton",
+  linkedin: "https://www.linkedin.com/in/divinewton/",
+  photo: "/board/divi.png",
+};
 export const dylan_ravel: Person = {
   name: "Dylan Ravel",
   linkedin: "https://www.linkedin.com/in/dylanravel/",
   photo: "/board/dylan.jpeg",
 };
-export const ethan_yoo: Person = { name: "Ethan Yoo" };
-export const halle_broadnax: Person = { name: "Halle Broadnax" };
+export const ethan_yoo: Person = {
+  name: "Ethan Yoo",
+  linkedin: "https://www.linkedin.com/in/ethan-garam-yoo/",
+  photo: "/board/ethan.png",
+};
+export const halle_broadnax: Person = {
+  name: "Halle Broadnax",
+  linkedin: "https://www.linkedin.com/in/hallebroadnax/",
+  photo: "/board/halle.jpeg",
+};
 export const hemi_shah: Person = {
   name: "Hemi Shah",
   linkedin: "https://www.linkedin.com/in/hemi-shah-86b9b92b4/",
   photo: "/board/hemi.jpeg",
 };
-export const jacob_zamore: Person = { name: "Jacob Zamore" };
+export const jacob_zamore: Person = {
+  name: "Jacob Zamore",
+  linkedin: "https://www.linkedin.com/in/jacob-zamore",
+  photo: "/board/jacob.jpeg",
+};
 export const jeffrey_bok: Person = {
   name: "Jeffrey Bok",
   linkedin: "https://www.linkedin.com/in/jeffreybok/",
   photo: "/board/jeffrey.png",
 };
-export const jerry_salas: Person = { name: "Jerry Salas" };
+export const jerry_salas: Person = {
+  name: "Jerry Salas",
+  linkedin: "https://www.linkedin.com/in/salas-jerry/",
+  photo: "/board/jerry.png",
+};
 export const joel_escobar: Person = {
   name: "Joel Escobar",
   linkedin: "https://www.linkedin.com/in/jescobar04/",
   photo: "/board/joel.jpeg",
 };
-export const joshua_dowd: Person = { name: "Joshua Dowd" };
+export const joshua_dowd: Person = {
+  name: "Joshua Dowd",
+  linkedin: "https://www.linkedin.com/in/joshua-dowd/",
+  photo: "/board/joshua.jpeg",
+};
 export const kalin_richardson: Person = {
   name: "Kalin Richardson",
   linkedin: "https://www.linkedin.com/in/kalin-richardson/",
   photo: "/board/kalin.jpeg",
 };
-export const kyla_cabrera: Person = { name: "Kyla Monique Cabrera" };
-export const lauren_chen: Person = { name: "Lauren Chen" };
+export const kyla_cabrera: Person = {
+  name: "Kyla Monique Cabrera",
+  linkedin: "https://www.linkedin.com/in/kylamonique/",
+  photo: "/board/kyla.jpeg",
+};
+export const lauren_chen: Person = {
+  name: "Lauren Chen",
+  linkedin: "https://www.linkedin.com/in/laurengchen/",
+  photo: "/board/lauren.jpeg",
+};
 export const lydia_moore: Person = {
   name: "Lydia Moore",
   linkedin: "https://www.linkedin.com/in/lydia-moore-bb9487384/",
@@ -72,8 +116,16 @@ export const lynis_pierre_louis: Person = {
   linkedin: "https://www.linkedin.com/in/lynispierrelouis/",
   photo: "/board/lynis.png",
 };
-export const margo_burbank: Person = { name: "Margo Burbank" };
-export const mason_pennell: Person = { name: "Mason Pennell" };
+export const margo_burbank: Person = {
+  name: "Margo Burbank",
+  linkedin: "https://www.linkedin.com/in/margo-burbank/",
+  photo: "/board/margo.jpeg",
+};
+export const mason_pennell: Person = {
+  name: "Mason Pennell",
+  linkedin: "https://www.linkedin.com/in/masonpennell/",
+  photo: "/board/mason.jpeg",
+};
 export const maya_federico: Person = {
   name: "Maya Federico",
   linkedin: "https://www.linkedin.com/in/maya-federico-8a8596295/",
@@ -84,8 +136,21 @@ export const nataniel_farzan: Person = {
   linkedin: "https://www.linkedin.com/in/natanielfarzan/",
   photo: "/board/nataniel.jpeg",
 };
-export const owen_agbayani: Person = { name: "Owen Lucas Agbayani" };
-export const savana_chou: Person = { name: "Savana Chou" };
+export const owen_agbayani: Person = {
+  name: "Owen Lucas Agbayani",
+  linkedin: "https://www.linkedin.com/in/agbayani/",
+  photo: "/board/owen.jpeg",
+};
+export const sam_fago: Person = {
+  name: "Sam Fago",
+  linkedin: "https://www.linkedin.com/in/sam-fago/",
+  photo: "/board/sam.png",
+};
+export const savana_chou: Person = {
+  name: "Savana Chou",
+  linkedin: "https://www.linkedin.com/in/savana-chou/",
+  photo: "/board/savana.jpeg",
+};
 export const thaw_han: Person = {
   name: "Thaw Han",
   linkedin: "https://www.linkedin.com/in/thaw-han-467367339/",
