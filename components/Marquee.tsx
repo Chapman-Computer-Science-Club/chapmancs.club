@@ -10,8 +10,9 @@ export default function Marquee({ children, className }: { children: React.React
   const [width, setWidth] = useState(0); // text width when overflowing, else 0
   useEffect(() => {
     const el = ref.current!;
+    const t = text.current!;
     const ro = new ResizeObserver(() => {
-      const w = text.current!.offsetWidth;
+      const w = t.offsetWidth;
       setWidth(w > el.clientWidth ? w : 0);
     });
     ro.observe(el);
