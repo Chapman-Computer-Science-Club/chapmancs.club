@@ -44,7 +44,7 @@ function Gallery() {
               src={gallery[i]}
               alt=""
               fill
-              sizes="(min-width: 640px) 60vw, 100vw"
+              sizes="(min-width: 841px) 60vw, 100vw"
               className={s.cover}
               priority={i === 0}
             />

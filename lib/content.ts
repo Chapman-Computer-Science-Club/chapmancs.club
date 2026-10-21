@@ -2,7 +2,8 @@ export const PANTHER_CONNECT = "https://pantherconnect.chapman.edu/COMPSC/club_s
 export const INSTAGRAM = "https://www.instagram.com/chapmancsclub/";
 export const LINKEDIN = "https://www.linkedin.com/company/chapman-computer-science-club/";
 export const DISCORD = "http://discord.gg/9NSwX5PxqC";
-export const GITHUB = "https://github.com/Chapman-Computer-Science-Club/chapmancs.club";
+export const GITHUB = "https://github.com/Chapman-Computer-Science-Club";
+export const GITHUB_REPO = "https://github.com/Chapman-Computer-Science-Club/chapmancs.club";
 export const LINKTREE = "https://linktr.ee/chapmancsclub";
 
 export const heroStats = [

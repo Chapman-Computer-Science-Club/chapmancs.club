@@ -4,7 +4,7 @@ import { startTransition, useEffect, useOptimistic, useRef, useState } from "rea
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "motion/react";
 
-import { socials } from "@/lib/content";
+import { GITHUB_REPO, socials } from "@/lib/content";
 import { SECTIONS } from "@/lib/sections";
 import { playTypingSound, toggleMuted, useMuted } from "@/lib/typingSounds";
 import ActionListItem from "./sacred/ActionListItem";
@@ -13,7 +13,7 @@ import styles from "./Terminal.module.css";
 
 const CONTACT = SECTIONS.findIndex((s) => s.id === "contact");
 
-const isDesktop = () => !matchMedia("(max-width: 640px)").matches;
+const isDesktop = () => !matchMedia("(max-width: 841px)").matches;
 
 const FOCUSABLE = 'a[href], [tabindex="0"]';
 
@@ -36,6 +36,10 @@ function toggleTheme() {
   try {
     localStorage.setItem("theme", next);
   } catch {}
+}
+
+function openLink(url: string) {
+  window.open(url, "_blank");
 }
 
 // Retypes its text whenever it changes, like a shell echoing a new cwd.
@@ -162,6 +166,7 @@ export default function Terminal({
       const k = e.key;
       if (k === "t") return toggleTheme();
       if (k === "m") return toggleMuted();
+      if (k === "g") return openLink(GITHUB_REPO);
       const n = Number(k);
       const jump = n >= 1 && n <= SECTIONS.length;
       if (!e.repeat && (jump || NAV_KEYS.has(k))) playTypingSound();
@@ -295,6 +300,9 @@ export default function Terminal({
         <span className={styles.hints}>
           -- <Typed text={(mode ?? zone).toUpperCase()} /> --
         </span>
+        <button type="button" className={styles.key} onClick={() => openLink(GITHUB_REPO)}>
+          <b>g</b> github
+        </button>
         <button type="button" className={styles.key} onClick={toggleMuted}>
           <b>m</b> {muted ? "unmute" : "mute"}
         </button>

@@ -103,7 +103,7 @@
   padding-bottom: 1.25rem;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 841px) {
   .shell {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto auto minmax(0, 1fr) auto;
@@ -118,7 +118,7 @@
 
   .menuList {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(17ch, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(max(17ch, 30%), 1fr));
     column-gap: 1ch;
   }
 
