@@ -12,8 +12,8 @@ A modern, statically-generated website for Chapman University's Computer Science
 ## Getting Started
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
@@ -58,12 +58,11 @@ Place photos in `public/board/`.
 
 ### Vercel (recommended)
 ```bash
-npm install -g vercel
-vercel
+pnpm dlx vercel
 ```
 
 ### Netlify
-Push to GitHub, connect the repo in Netlify. Build command: `npm run build`. Publish dir: `.next`.
+Push to GitHub, connect the repo in Netlify. Build command: `pnpm build`. Publish dir: `.next`.
 
 ### GitHub Pages
 Use `next export` (set `output: "export"` in `next.config.ts`) for a fully static export.
