@@ -225,6 +225,8 @@ export const tyler_lewis: Person = {
   linkedin: "https://www.linkedin.com/in/tylew/",
   photo: "/board/tylerL.png",
 };
-
-// TODO: Find Zachary's Picture and LinkedIn
-export const zachary_inn: Person = { name: "Zachary Inn" };
+export const zachary_inn: Person = {
+  name: "Zachary Inn",
+  linkedin: "https://www.linkedin.com/in/zacharyinn/",
+  photo: "/board/zachary.jpeg",
+};

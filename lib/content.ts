@@ -2,7 +2,7 @@ export const PANTHER_CONNECT = "https://pantherconnect.chapman.edu/COMPSC/club_s
 
 export const heroStats = [
   ["STAT", "VALUE"],
-  ["Founded", "2022"],
+  ["Founded", "2021"],
   ["Club Meetings", "Weekly"],
   ["Admission", "Free, Open to All"],
   ["Hackathons", "Yearly"],
