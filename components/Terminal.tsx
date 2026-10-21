@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
+import { playTypingSound, toggleMuted, useMuted } from "@/lib/typingSounds";
 import ActionListItem from "./sacred/ActionListItem";
 import Card from "./sacred/Card";
 import { AboutSection } from "./sections/About";
@@ -23,6 +24,8 @@ const SECTIONS = [
 ];
 
 const FOCUSABLE = 'a[href], [tabindex="0"]';
+
+const NAV_KEYS = new Set(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "h", "j", "k", "l", "Enter", "Escape"]);
 
 function toggleTheme() {
   const b = document.body;
@@ -67,6 +70,7 @@ export default function Terminal() {
   const menuRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const section = SECTIONS[idx];
+  const muted = useMuted();
 
   const go = useCallback((id: string) => {
     setIdx(SECTIONS.findIndex((s) => s.id === id));
@@ -92,8 +96,11 @@ export default function Terminal() {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       const k = e.key;
       if (k === "t") return toggleTheme();
+      if (k === "m") return toggleMuted();
       const n = Number(k);
-      if (n >= 1 && n <= SECTIONS.length) return go(SECTIONS[n - 1].id);
+      const jump = n >= 1 && n <= SECTIONS.length;
+      if (!e.repeat && (jump || NAV_KEYS.has(k))) playTypingSound();
+      if (jump) return go(SECTIONS[n - 1].id);
 
       const down = k === "ArrowDown" || k === "j";
       const up = k === "ArrowUp" || k === "k";
@@ -190,6 +197,9 @@ export default function Terminal() {
           <b>↑↓</b> select <b>→</b> open <b>←</b> back <b>1-6</b> jump
         </span>
         <span className={styles.hints}>{zone === "menu" ? "-- MENU --" : "-- BODY --"}</span>
+        <button type="button" className={styles.key} onClick={toggleMuted}>
+          <b>m</b> {muted ? "unmute" : "mute"}
+        </button>
         <button type="button" className={styles.key} onClick={toggleTheme}>
           <b>t</b> theme
         </button>

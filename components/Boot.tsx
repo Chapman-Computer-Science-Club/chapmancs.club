@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
+import { playTypingSound, preloadTypingSounds } from "@/lib/typingSounds";
 import { useInitialMedia } from "@/lib/useInitialMedia";
 import styles from "./Boot.module.css";
 import BlockLoader from "./sacred/BlockLoader";
@@ -59,6 +60,16 @@ export default function Boot({ onDone }: { onDone: () => void }) {
     const id = setTimeout(onDone, 2600);
     return () => clearTimeout(id);
   }, [connecting, onDone]);
+
+  useEffect(preloadTypingSounds, []);
+
+  useEffect(() => {
+    if (typed > 0) playTypingSound();
+  }, [typed]);
+
+  useEffect(() => {
+    if (connecting) playTypingSound();
+  }, [connecting]);
 
   const lines = [
     `Connecting to chapmancs.club (Chapman University, Orange, CA)...`,

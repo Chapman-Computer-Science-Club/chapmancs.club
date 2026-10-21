@@ -53,6 +53,10 @@
   margin-left: auto;
 }
 
+.key + .key {
+  margin-left: 0;
+}
+
 .menu {
   min-height: 0;
 }
