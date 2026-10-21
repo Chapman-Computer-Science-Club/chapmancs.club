@@ -61,7 +61,7 @@ function Gallery() {
 export function AboutSection() {
   return (
     <div className={s.stack}>
-      <h2 className={s.h2}>A community built for curious minds</h2>
+      <h2 className={s.h2}>A Community Built for Curious Minds</h2>
       <p>
         The CS Club is open to anyone at Chapman who&apos;s into <strong>computer science</strong>. You don&apos;t have
         to be a CS major or even know how to code. If you&apos;re curious about tech and innovation, you belong here.

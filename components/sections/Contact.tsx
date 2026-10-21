@@ -5,7 +5,7 @@ import s from "./Sections.module.css";
 export function ContactSection() {
   return (
     <div className={s.stack}>
-      <h2 className={s.h2}>Get involved</h2>
+      <h2 className={s.h2}>Get Involved</h2>
       <p>
         Follow us on social media, register on Panther Connect, or show up to a weekly meeting. Everyone is welcome.
       </p>

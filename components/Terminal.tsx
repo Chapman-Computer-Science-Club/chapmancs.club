@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
+import { socials } from "@/lib/content";
 import { playTypingSound, toggleMuted, useMuted } from "@/lib/typingSounds";
 import ActionListItem from "./sacred/ActionListItem";
 import Card from "./sacred/Card";
@@ -22,6 +23,10 @@ const SECTIONS = [
   { id: "board", label: "Board", Body: BoardSection },
   { id: "contact", label: "Contact", Body: ContactSection },
 ];
+
+const CONTACT = SECTIONS.findIndex((s) => s.id === "contact");
+
+const isDesktop = () => !matchMedia("(max-width: 640px)").matches;
 
 const FOCUSABLE = 'a[href], [tabindex="0"]';
 
@@ -53,6 +58,14 @@ function Typed({ text }: { text: string }) {
   return <>{text.slice(0, n)}</>;
 }
 
+function Caret() {
+  return (
+    <motion.span layoutId="caret" transition={{ type: "spring", stiffness: 600, damping: 40 }}>
+      ▸
+    </motion.span>
+  );
+}
+
 function Clock() {
   const [now, setNow] = useState("");
   useEffect(() => {
@@ -66,26 +79,40 @@ function Clock() {
 
 export default function Terminal() {
   const [idx, setIdx] = useState(0);
+  const [contactIdx, setContactIdx] = useState(0);
   const [zone, setZone] = useState<"menu" | "body">("menu");
   const menuRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLElement>(null);
   const section = SECTIONS[idx];
   const muted = useMuted();
 
   const go = useCallback((id: string) => {
     setIdx(SECTIONS.findIndex((s) => s.id === id));
+    setContactIdx(0);
     setZone("menu");
   }, []);
 
+  const selectContact = (j: number) => {
+    setIdx(CONTACT);
+    setContactIdx(j);
+    setZone("menu");
+  };
+
   const focusables = () =>
     Array.from(
-      bodyRef.current?.querySelectorAll<HTMLElement>(`[data-section="${SECTIONS[idx].id}"] ${FOCUSABLE}`) ?? []
+      bodyRef.current?.querySelectorAll<HTMLElement>(`[data-section="${SECTIONS[idx].id}"] :is(${FOCUSABLE})`) ?? []
     );
 
   // Keep DOM focus on the highlighted menu entry while the menu zone is active.
   useEffect(() => {
-    if (zone === "menu") menuRef.current?.querySelectorAll<HTMLElement>("[role=menuitem]")[idx]?.focus();
-  }, [idx, zone]);
+    if (zone !== "menu") return;
+    const target =
+      idx === CONTACT && isDesktop()
+        ? contactRef.current?.querySelectorAll<HTMLElement>("a")[contactIdx]
+        : menuRef.current?.querySelectorAll<HTMLElement>("[role=menuitem]")[idx];
+    target?.focus();
+  }, [idx, contactIdx, zone]);
 
   useEffect(() => {
     bodyRef.current?.scrollTo({ top: 0 });
@@ -106,10 +133,17 @@ export default function Terminal() {
       const up = k === "ArrowUp" || k === "k";
 
       if (zone === "menu") {
+        const desktop = isDesktop();
+        const inContact = desktop && idx === CONTACT;
         if (down || up) {
           e.preventDefault();
-          setIdx((i) => (i + (down ? 1 : -1) + SECTIONS.length) % SECTIONS.length);
-        } else if (k === "ArrowRight" || k === "l" || k === "Enter") {
+          // on desktop the menu runs on into the contact links
+          const slots = desktop ? CONTACT + socials.length : SECTIONS.length;
+          const pos = inContact ? CONTACT + contactIdx : idx;
+          const next = (pos + (down ? 1 : -1) + slots) % slots;
+          setIdx(Math.min(next, CONTACT));
+          if (desktop && next >= CONTACT) setContactIdx(next - CONTACT);
+        } else if (k === "ArrowRight" || k === "l" || (k === "Enter" && !inContact)) {
           e.preventDefault();
           setZone("body");
           (focusables()[0] ?? bodyRef.current)?.focus();
@@ -154,26 +188,49 @@ export default function Terminal() {
         <Clock />
       </header>
 
-      <nav className={styles.menu} ref={menuRef} onFocus={() => setZone("menu")}>
-        <Card title="MENU" mode="left">
-          <div className={styles.menuList} role="menu">
-            {SECTIONS.map((s, i) => (
-              <div key={s.id} className={styles.row} data-active={i === idx || undefined}>
-                <span className={styles.gutter}>
-                  {i === idx && (
-                    <motion.span layoutId="caret" transition={{ type: "spring", stiffness: 600, damping: 40 }}>
-                      ▸
-                    </motion.span>
-                  )}
-                </span>
-                <ActionListItem role="menuitem" icon={i + 1} onClick={() => setIdx(i)}>
-                  {s.label}
-                </ActionListItem>
-              </div>
-            ))}
-          </div>
-        </Card>
-      </nav>
+      <div className={styles.side}>
+        <nav className={styles.menu} ref={menuRef} onFocus={() => setZone("menu")}>
+          <Card title="MENU" mode="left">
+            <div className={styles.menuList} role="menu">
+              {SECTIONS.map((s, i) => (
+                <div
+                  key={s.id}
+                  className={styles.row}
+                  data-active={i === idx || undefined}
+                  data-mobile-only={i === CONTACT || undefined}
+                >
+                  <span className={styles.gutter}>{i === idx && i !== CONTACT && <Caret />}</span>
+                  <ActionListItem role="menuitem" icon={i + 1} onClick={() => setIdx(i)}>
+                    {s.label}
+                  </ActionListItem>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </nav>
+
+        <aside className={styles.contact} ref={contactRef}>
+          <Card title="CONTACT" mode="left">
+            {socials.map((so, j) => {
+              const active = idx === CONTACT && j === contactIdx;
+              return (
+                <div
+                  key={so.label}
+                  className={styles.row}
+                  data-active={active || undefined}
+                  onFocus={() => selectContact(j)}
+                  onClick={() => selectContact(j)}
+                >
+                  <span className={styles.gutter}>{active && <Caret />}</span>
+                  <ActionListItem icon={so.icon} href={so.href} target="_blank">
+                    {so.label}
+                  </ActionListItem>
+                </div>
+              );
+            })}
+          </Card>
+        </aside>
+      </div>
 
       <main className={styles.body} ref={bodyRef} tabIndex={-1} onFocus={() => setZone("body")}>
         <Card title={<Typed text={`~/${section.id}`} />} mode="left">

@@ -13,7 +13,7 @@ export function EventsSection() {
   const e = events[sel];
   return (
     <div className={s.stack}>
-      <h2 className={s.h2}>Events for everyone</h2>
+      <h2 className={s.h2}>Events for Everyone</h2>
       <p className={s.muted}>From weekly meetings to campus-wide events, we keep the calendar full.</p>
       <div className={s.split}>
         <div className={s.actions}>

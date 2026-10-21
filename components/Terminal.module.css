@@ -57,12 +57,24 @@
   margin-left: 0;
 }
 
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-height: 0;
+  overflow-y: auto;
+}
+
 .menu {
   min-height: 0;
 }
 
 .row {
   display: flex;
+}
+
+.row[data-mobile-only] {
+  display: none;
 }
 
 .row > :last-child {
@@ -110,8 +122,13 @@
     column-gap: 1ch;
   }
 
+  .row[data-mobile-only] {
+    display: flex;
+  }
+
   .gutter,
-  .hints {
+  .hints,
+  .contact {
     display: none;
   }
 }
