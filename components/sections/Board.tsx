@@ -37,27 +37,33 @@ export function BoardSection() {
           <section key={tier.label} className={s.stack}>
             <h3 className={s.tier}>{tier.label}</h3>
             <div className={s.members}>
-              {tier.members.map((m) => (
-                <motion.div
-                  key={m.name + m.role}
-                  className={s.member}
-                  data-marquee-host
-                  initial={{ opacity: 0, x: -6 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: n++ * 0.035 }}
-                >
-                  <Avatar
-                    src={m.photo}
-                    initials={initials(m.name)}
-                    href={m.linkedin}
-                    target="_blank"
-                    style={{ width: "6ch", height: "3.75rem" }}
-                  >
+              {tier.members.map((m) => {
+                const card = (
+                  <Avatar src={m.photo} initials={initials(m.name)} style={{ width: "6ch", height: "3.75rem" }}>
                     <div>{m.name}</div>
                     <Marquee className={s.role}>{m.role}</Marquee>
                   </Avatar>
-                </motion.div>
-              ))}
+                );
+                return (
+                  <motion.div
+                    key={m.name + m.role}
+                    className={s.member}
+                    data-marquee-host
+                    data-avatar-host
+                    initial={{ opacity: 0, x: -6 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: n++ * 0.035 }}
+                  >
+                    {m.linkedin ? (
+                      <a className={s.memberLink} href={m.linkedin} target="_blank" rel="noreferrer">
+                        {card}
+                      </a>
+                    ) : (
+                      card
+                    )}
+                  </motion.div>
+                );
+              })}
             </div>
           </section>
         ))}

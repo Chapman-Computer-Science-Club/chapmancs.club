@@ -146,11 +146,22 @@
   gap: 1.25rem 2ch;
 }
 
-.member > div > span {
+.member > div > span,
+.memberLink > div > span {
   padding-left: 1ch;
 }
 
-.member:focus-within {
+.memberLink,
+.memberLink:hover,
+.memberLink:focus,
+.memberLink:active {
+  display: block;
+  background: transparent;
+  text-decoration: none;
+}
+
+.member:focus-within,
+.member:has(> .memberLink:hover) {
   background: var(--theme-focused-foreground-subdued);
 }
 

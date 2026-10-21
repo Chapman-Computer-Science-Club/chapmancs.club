@@ -64,6 +64,18 @@ a.root {
   }
 }
 
+[data-avatar-host]:is(:hover, :focus-within) :is(.root, .placeholder)::before {
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.5;
+  background: var(--theme-focused-foreground);
+}
+
 .right {
   min-width: 10%;
   width: 100%;

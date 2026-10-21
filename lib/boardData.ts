@@ -10,7 +10,7 @@ const m = (person: Person, role: string): BoardMember => ({ ...person, role });
 // newest year first
 export const boardYears: { year: string; tiers: { label: string; members: BoardMember[] }[] }[] = [
   {
-    year: "'27",
+    year: "'26 - '27",
     tiers: [
       {
         label: "Leadership",
@@ -42,7 +42,7 @@ export const boardYears: { year: string; tiers: { label: string; members: BoardM
     ],
   },
   {
-    year: "'26",
+    year: "'25 - '26",
     tiers: [
       {
         label: "Leadership",
@@ -80,7 +80,7 @@ export const boardYears: { year: string; tiers: { label: string; members: BoardM
     ],
   },
   {
-    year: "'25",
+    year: "'24 to '25",
     tiers: [
       { label: "Leadership", members: [m(p.nataniel_farzan, "President")] },
       {
