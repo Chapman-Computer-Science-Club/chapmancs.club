@@ -34,6 +34,16 @@
 .top {
   background: var(--accent);
   color: var(--theme-background);
+  flex-wrap: wrap;
+  height: 1lh;
+  column-gap: 1ch;
+  container-type: inline-size;
+}
+
+@container (max-width: 36ch) {
+  .user {
+    display: none;
+  }
 }
 
 .status {

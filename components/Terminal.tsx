@@ -231,7 +231,9 @@ export default function Terminal({
       onPointerUp={clickSound}
     >
       <header className={styles.top}>
-        <span>guest@chapmancs.club:~/{page === "home" ? "" : page}$</span>
+        <span>
+          <span className={styles.user}>guest@</span>chapmancs.club:~/{page === "home" ? "" : page}$
+        </span>
         <Clock />
       </header>
 
