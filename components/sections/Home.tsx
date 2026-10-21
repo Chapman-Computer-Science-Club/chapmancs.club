@@ -5,9 +5,7 @@ import ActionListItem from "../sacred/ActionListItem";
 import SimpleTable from "../sacred/SimpleTable";
 import s from "./Sections.module.css";
 
-type SectionProps = { go: (id: string) => void };
-
-export function HomeSection({ go }: SectionProps) {
+export function HomeSection() {
   return (
     <div className={s.stack}>
       <div className={s.hero}>
@@ -35,7 +33,7 @@ export function HomeSection({ go }: SectionProps) {
             PantherConnect
           </ActionListItem>
         </div>
-        <ActionListItem icon="→" onClick={() => go("about")}>
+        <ActionListItem icon="→" href="/about">
           Learn more
         </ActionListItem>
       </div>

@@ -17,8 +17,16 @@ const initials = (name: string) => {
 
 export function BoardSection() {
   const [sel, setSel] = useState(0);
+  // only stagger members in on a year switch, so the server-rendered first year isn't hidden
+  const [switched, setSwitched] = useState(false);
   const yearsRef = useRef<HTMLDivElement>(null);
   let n = 0;
+
+  const select = (i: number) => {
+    if (i === sel) return;
+    setSel(i);
+    setSwitched(true);
+  };
 
   const onYearKey = (e: React.KeyboardEvent) => {
     const prev = e.key === "ArrowLeft" || e.key === "h";
@@ -38,8 +46,8 @@ export function BoardSection() {
       </p>
       <div className={s.years} ref={yearsRef} onKeyDown={onYearKey} data-mode="year">
         {boardYears.map((y, i) => (
-          <div key={y.year} className={s.pick} data-active={i === sel || undefined} onFocus={() => setSel(i)}>
-            <ActionListItem icon={i === sel ? "●" : "○"} tabIndex={i === sel ? 0 : -1} onClick={() => setSel(i)}>
+          <div key={y.year} className={s.pick} data-active={i === sel || undefined} onFocus={() => select(i)}>
+            <ActionListItem icon={i === sel ? "●" : "○"} tabIndex={i === sel ? 0 : -1} onClick={() => select(i)}>
               {y.year}
             </ActionListItem>
           </div>
@@ -63,7 +71,7 @@ export function BoardSection() {
                     className={s.member}
                     data-marquee-host
                     data-mode="person"
-                    initial={{ opacity: 0, x: -6 }}
+                    initial={switched ? { opacity: 0, x: -6 } : false}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: n++ * 0.035 }}
                   >

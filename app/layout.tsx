@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Space_Mono } from "next/font/google";
 
+import Shell from "@/components/Shell";
+import { SITE_NAME, SITE_URL } from "@/lib/seo";
+
 import "./sacred.css";
 import "./globals.css";
 
@@ -11,8 +14,10 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Chapman Computer Science Club",
+  metadataBase: new URL(SITE_URL),
+  title: { default: SITE_NAME, template: `%s • ${SITE_NAME}` },
   description: "Chapman University's CS Club - connect, collaborate, and create in the field of computer science.",
+  twitter: { card: "summary" },
   icons: {
     icon: "/old_cs_logo.png",
     shortcut: "/old_cs_logo.png",
@@ -28,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={spaceMono.variable}>
       <body className="tint-red" suppressHydrationWarning>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        {children}
+        <Shell>{children}</Shell>
       </body>
     </html>
   );

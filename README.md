@@ -30,19 +30,25 @@ pnpm format          # prettier across the repo
 
 ```
 app/
-  layout.tsx       # Root layout: font, metadata, theme init script
-  page.tsx         # Boot sequence, then the terminal
+  layout.tsx       # Root layout: font, site metadata, theme init script, the terminal shell
+  page.tsx         # Home (/); about/, events/, pantherhacks/, board/, contact/ each have their own page.tsx
+  not-found.tsx    # ~/404
+  sitemap.ts       # /sitemap.xml
+  robots.ts        # /robots.txt
   globals.css      # Site overrides on top of SRCL (Chapman tint, layout)
   sacred.css       # SRCL base styles and color palette
 
 components/
+  Shell.tsx        # Boot screen over the terminal; stays mounted across page changes
   Boot.tsx         # "ssh chapmancs.club" boot screen (Esc skips it)
-  Terminal.tsx     # Menu, section panel, keyboard navigation, theme toggle
+  Terminal.tsx     # Menu, page panel, keyboard navigation, status bar
   Marquee.tsx      # Scrolls text that's too long to fit, on hover
-  sections/        # One component per menu entry: Home, About, Events, PantherHacks, Board, Contact
+  sections/        # Each page's content: Home, About, Events, PantherHacks, Board, Contact
   sacred/          # SRCL components (Card, ActionListItem, Avatar, ...)
 
 lib/
+  sections.ts      # Menu entries and their URLs
+  seo.ts           # Site URL and per-page title/description/canonical helper
   content.ts       # Home stats, gallery photos, events, socials, PantherConnect link
   people.ts        # Everyone who has served on the board
   boardData.ts     # Board roster by year

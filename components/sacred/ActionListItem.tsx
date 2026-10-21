@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 
 import styles from "./ActionListItem.module.css";
 
@@ -21,12 +22,15 @@ const ActionListItem: React.FC<ActionListItemProps> = (props) => {
   const resolvedRole = role || (href ? "link" : "button");
 
   if (href) {
-    return (
-      <a className={styles.item} href={href} target={target} style={style} tabIndex={tabIndex} role={resolvedRole}>
+    const props = { className: styles.item, href, target, style, tabIndex, role: resolvedRole };
+    const content = (
+      <>
         <figure className={styles.icon}>{icon}</figure>
         <span className={styles.text}>{children}</span>
-      </a>
+      </>
     );
+    // site paths navigate client-side so the terminal shell stays mounted
+    return href.startsWith("/") ? <Link {...props}>{content}</Link> : <a {...props}>{content}</a>;
   }
 
   //NOTE(jimmylee): When role="menuitem", the parent menu container handles keyboard activation.

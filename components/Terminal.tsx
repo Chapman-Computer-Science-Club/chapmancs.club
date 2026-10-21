@@ -1,28 +1,15 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { startTransition, useEffect, useOptimistic, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { motion } from "motion/react";
 
 import { socials } from "@/lib/content";
+import { SECTIONS } from "@/lib/sections";
 import { playTypingSound, toggleMuted, useMuted } from "@/lib/typingSounds";
 import ActionListItem from "./sacred/ActionListItem";
 import Card from "./sacred/Card";
-import { AboutSection } from "./sections/About";
-import { BoardSection } from "./sections/Board";
-import { ContactSection } from "./sections/Contact";
-import { EventsSection } from "./sections/Events";
-import { HomeSection } from "./sections/Home";
-import { PantherHacksSection } from "./sections/PantherHacks";
 import styles from "./Terminal.module.css";
-
-const SECTIONS = [
-  { id: "home", label: "Home", Body: HomeSection },
-  { id: "about", label: "About", Body: AboutSection },
-  { id: "events", label: "Events", Body: EventsSection },
-  { id: "pantherhacks", label: "PantherHacks", Body: PantherHacksSection },
-  { id: "board", label: "Board", Body: BoardSection },
-  { id: "contact", label: "Contact", Body: ContactSection },
-];
 
 const CONTACT = SECTIONS.findIndex((s) => s.id === "contact");
 
@@ -87,49 +74,80 @@ function Clock() {
   return <span>{now}</span>;
 }
 
-export default function Terminal() {
-  const [idx, setIdx] = useState(0);
+export default function Terminal({
+  children,
+  active,
+  reveal,
+}: {
+  children: React.ReactNode;
+  active: boolean;
+  reveal: boolean;
+}) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const routeIdx = SECTIONS.findIndex((s) => s.path === pathname);
+  // the menu moves immediately; the page follows when the navigation lands
+  const [idx, setIdx] = useOptimistic(routeIdx);
   const [contactIdx, setContactIdx] = useState(0);
   const [zone, setZone] = useState<"menu" | "body">("menu");
   const [mode, setMode] = useState<string | null>(null);
+  const [navigated, setNavigated] = useState(false);
+  const [prevPath, setPrevPath] = useState(pathname);
   const menuRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLElement>(null);
-  const section = SECTIONS[idx];
+  const page = SECTIONS[routeIdx]?.id ?? "404";
   const muted = useMuted();
 
-  const go = useCallback((id: string) => {
-    setIdx(SECTIONS.findIndex((s) => s.id === id));
+  if (pathname !== prevPath) {
+    setPrevPath(pathname);
+    setNavigated(true);
+    setZone("menu");
+  }
+
+  const goTo = (i: number) => {
+    if (i === idx) return;
+    startTransition(() => {
+      setIdx(i);
+      router.push(SECTIONS[i].path, { scroll: false });
+    });
+  };
+
+  const jumpTo = (i: number) => {
+    goTo(i);
     setContactIdx(0);
     setZone("menu");
-  }, []);
+  };
 
   const selectContact = (j: number) => {
-    setIdx(CONTACT);
+    goTo(CONTACT);
     setContactIdx(j);
     setZone("menu");
   };
 
   const focusables = () =>
-    Array.from(
-      bodyRef.current?.querySelectorAll<HTMLElement>(`[data-section="${SECTIONS[idx].id}"] :is(${FOCUSABLE})`) ?? []
-    );
+    Array.from(bodyRef.current?.querySelectorAll<HTMLElement>(`[data-section="${pathname}"] :is(${FOCUSABLE})`) ?? []);
+
+  useEffect(() => {
+    SECTIONS.forEach((s) => router.prefetch(s.path));
+  }, [router]);
 
   // Keep DOM focus on the highlighted menu entry while the menu zone is active.
   useEffect(() => {
-    if (zone !== "menu") return;
+    if (!active || zone !== "menu") return;
     const target =
       idx === CONTACT && isDesktop()
         ? contactRef.current?.querySelectorAll<HTMLElement>("a")[contactIdx]
         : menuRef.current?.querySelectorAll<HTMLElement>("[role=menuitem]")[idx];
     target?.focus();
-  }, [idx, contactIdx, zone]);
+  }, [active, idx, contactIdx, zone]);
 
   useEffect(() => {
     bodyRef.current?.scrollTo({ top: 0 });
-  }, [idx]);
+  }, [pathname]);
 
   useEffect(() => {
+    if (!active) return;
     function onKey(e: KeyboardEvent) {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       const k = e.key;
@@ -138,7 +156,7 @@ export default function Terminal() {
       const n = Number(k);
       const jump = n >= 1 && n <= SECTIONS.length;
       if (!e.repeat && (jump || NAV_KEYS.has(k))) playTypingSound();
-      if (jump) return go(SECTIONS[n - 1].id);
+      if (jump) return jumpTo(n - 1);
 
       const down = k === "ArrowDown" || k === "j";
       const up = k === "ArrowUp" || k === "k";
@@ -152,7 +170,7 @@ export default function Terminal() {
           const slots = desktop ? CONTACT + socials.length : SECTIONS.length;
           const pos = inContact ? CONTACT + contactIdx : idx;
           const next = (pos + (down ? 1 : -1) + slots) % slots;
-          setIdx(Math.min(next, CONTACT));
+          goTo(Math.min(next, CONTACT));
           if (desktop && next >= CONTACT) setContactIdx(next - CONTACT);
         } else if (k === "ArrowRight" || k === "l" || (k === "Enter" && !inContact)) {
           e.preventDefault();
@@ -165,7 +183,6 @@ export default function Terminal() {
       if (down || up) {
         e.preventDefault();
         const items = focusables();
-        // Nothing to focus: arrows scroll the body instead.
         if (!items.length) return bodyRef.current?.scrollBy({ top: down ? 80 : -80 });
         const cur = items.indexOf(document.activeElement as HTMLElement);
         const next = cur === -1 ? 0 : Math.max(0, Math.min(items.length - 1, cur + (down ? 1 : -1)));
@@ -183,12 +200,13 @@ export default function Terminal() {
   return (
     <motion.div
       className={styles.shell}
-      initial={{ opacity: 0, filter: "blur(6px)" }}
-      animate={{
-        opacity: 1,
-        filter: ["blur(6px)", "blur(6px)", "blur(0px)"],
-        transitionEnd: { filter: "none" },
-      }}
+      inert={!active}
+      initial={false}
+      animate={
+        reveal
+          ? { opacity: [0, 1], filter: ["blur(6px)", "blur(6px)", "blur(0px)"], transitionEnd: { filter: "none" } }
+          : undefined
+      }
       transition={{
         opacity: { duration: 0.3, ease: "easeOut" },
         filter: { duration: 0.75, times: [0, 0.3, 1], ease: "easeOut" },
@@ -197,7 +215,7 @@ export default function Terminal() {
       onPointerOver={(e) => setMode(modeOf(e.target) ?? modeOf(document.activeElement))}
     >
       <header className={styles.top}>
-        <span>guest@chapmancs.club:~/{section.id === "home" ? "" : section.id}$</span>
+        <span>guest@chapmancs.club:~/{page === "home" ? "" : page}$</span>
         <Clock />
       </header>
 
@@ -213,7 +231,7 @@ export default function Terminal() {
                   data-mobile-only={i === CONTACT || undefined}
                 >
                   <span className={styles.gutter}>{i === idx && i !== CONTACT && <Caret />}</span>
-                  <ActionListItem role="menuitem" icon={i + 1} onClick={() => setIdx(i)}>
+                  <ActionListItem role="menuitem" icon={i + 1} href={s.path}>
                     {s.label}
                   </ActionListItem>
                 </div>
@@ -246,19 +264,16 @@ export default function Terminal() {
       </div>
 
       <main className={styles.body} ref={bodyRef} tabIndex={-1} onFocus={() => setZone("body")}>
-        <Card title={<Typed text={`~/${section.id}`} />} mode="left">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={section.id}
-              data-section={section.id}
-              initial={{ opacity: 0, x: 10, filter: "blur(3px)" }}
-              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, x: -10, filter: "blur(3px)" }}
-              transition={{ duration: 0.14 }}
-            >
-              <section.Body go={go} />
-            </motion.div>
-          </AnimatePresence>
+        <Card title={<Typed text={`~/${page}`} />} mode="left">
+          <motion.div
+            key={pathname}
+            data-section={pathname}
+            initial={navigated ? { opacity: 0, x: 10, filter: "blur(3px)" } : false}
+            animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.14 }}
+          >
+            {children}
+          </motion.div>
         </Card>
       </main>
 

@@ -8,6 +8,7 @@ export const heroStats = [
   ["STAT", "VALUE"],
   ["Founded", "2021"],
   ["Club Meetings", "Weekly"],
+  ["Members", "200+"],
   ["Admission", "Free, Open to All"],
   ["Hackathons", "Yearly"],
 ];
