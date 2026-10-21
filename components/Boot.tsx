@@ -43,6 +43,13 @@ export default function Boot({ onDone }: { onDone: () => void }) {
   const lineCount = lines.length;
 
   // Desktop: each keystroke types the next character; once complete, Enter (or any key) connects.
+  // the page under the boot stays readable to screen readers and scrapers, but keyboard focus shouldn't wander into it
+  useEffect(() => {
+    const blockTab = (e: KeyboardEvent) => e.key === "Tab" && e.preventDefault();
+    window.addEventListener("keydown", blockTab);
+    return () => window.removeEventListener("keydown", blockTab);
+  }, []);
+
   useEffect(() => {
     if (connecting) return;
     function onKey(e: KeyboardEvent) {
@@ -110,6 +117,7 @@ export default function Boot({ onDone }: { onDone: () => void }) {
   return (
     <motion.div
       className={styles.root}
+      aria-hidden
       // one tap animation for touch/pen, triple-click required for mouse
       onPointerDown={(e) => e.pointerType !== "mouse" && !connecting && setAuto(true)}
       onMouseDown={(e) => e.detail >= 3 && !connecting && setAuto(true)}

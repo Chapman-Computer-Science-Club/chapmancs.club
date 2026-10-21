@@ -214,7 +214,6 @@ export default function Terminal({
   return (
     <motion.div
       className={styles.shell}
-      inert={!active}
       initial={false}
       animate={
         reveal

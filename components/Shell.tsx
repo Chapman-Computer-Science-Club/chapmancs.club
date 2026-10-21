@@ -5,15 +5,15 @@ import { AnimatePresence } from "motion/react";
 
 import Boot from "@/components/Boot";
 import Terminal from "@/components/Terminal";
-import { useInitialMedia } from "@/lib/useInitialMedia";
+import { useInitial, useInitialMedia } from "@/lib/useInitialMedia";
 
 // Lives in the root layout, so it stays mounted across client-side navigation: the boot plays once per page load.
 export default function Shell({ children }: { children: React.ReactNode }) {
   const [finished, setFinished] = useState(false);
 
-  // turn off for reduced motion. Read once, so toggling the OS setting later can't replay the boot.
-  const skipBoot = useInitialMedia("(prefers-reduced-motion: reduce)");
-  const booted = finished || skipBoot;
+  const reducedMotion = useInitialMedia("(prefers-reduced-motion: reduce)");
+  const automated = useInitial(() => navigator.webdriver);
+  const booted = finished || reducedMotion || automated;
 
   const finish = useCallback(() => setFinished(true), []);
 
