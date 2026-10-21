@@ -45,6 +45,25 @@
   max-width: 40ch;
 }
 
+/* call to action button styling */
+.cta {
+  margin-bottom: 0.5rem;
+}
+
+.cta figure,
+.cta span {
+  height: auto;
+  padding-block: 0.5rem;
+  background: var(--accent);
+  color: var(--theme-background);
+  font-weight: 700;
+}
+
+.cta a:hover figure,
+.cta a:focus figure {
+  background: var(--theme-text);
+}
+
 .split {
   display: grid;
   grid-template-columns: minmax(0, 1fr);

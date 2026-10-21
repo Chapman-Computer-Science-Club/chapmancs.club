@@ -27,9 +27,11 @@ export function HomeSection({ go }: SectionProps) {
       </div>
       <SimpleTable data={heroStats} align={["left", "right"]} />
       <div className={s.actions}>
-        <ActionListItem icon="↗" href={PANTHER_CONNECT} target="_blank">
-          PantherConnect
-        </ActionListItem>
+        <div className={s.cta}>
+          <ActionListItem icon="↗" href={PANTHER_CONNECT} target="_blank">
+            PantherConnect
+          </ActionListItem>
+        </div>
         <ActionListItem icon="→" onClick={() => go("about")}>
           Learn more
         </ActionListItem>
