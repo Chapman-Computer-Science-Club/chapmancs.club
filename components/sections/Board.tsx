@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "motion/react";
 
 import { boardYears } from "@/lib/boardData";
+import { playTypingSound } from "@/lib/typingSounds";
 import Marquee from "../Marquee";
 import ActionListItem from "../sacred/ActionListItem";
 import Avatar from "../sacred/Avatar";
@@ -16,17 +17,29 @@ const initials = (name: string) => {
 
 export function BoardSection() {
   const [sel, setSel] = useState(0);
+  const yearsRef = useRef<HTMLDivElement>(null);
   let n = 0;
+
+  const onYearKey = (e: React.KeyboardEvent) => {
+    const prev = e.key === "ArrowLeft" || e.key === "h";
+    const next = e.key === "ArrowRight" || e.key === "l";
+    if (!(prev || next) || (prev && sel === 0)) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (!e.repeat) playTypingSound();
+    const i = Math.min(boardYears.length - 1, sel + (next ? 1 : -1));
+    yearsRef.current?.querySelectorAll<HTMLElement>("[role=button]")[i]?.focus();
+  };
   return (
     <div className={s.stack}>
       <h2 className={s.h2}>Meet the Board</h2>
       <p className={s.muted}>
         Our executive board keeps the club running. Interested in joining the board? Come to a meeting and get involved.
       </p>
-      <div className={s.years}>
+      <div className={s.years} ref={yearsRef} onKeyDown={onYearKey}>
         {boardYears.map((y, i) => (
           <div key={y.year} className={s.pick} data-active={i === sel || undefined} onFocus={() => setSel(i)}>
-            <ActionListItem icon={i === sel ? "●" : "○"} onClick={() => setSel(i)}>
+            <ActionListItem icon={i === sel ? "●" : "○"} tabIndex={i === sel ? 0 : -1} onClick={() => setSel(i)}>
               {y.year}
             </ActionListItem>
           </div>

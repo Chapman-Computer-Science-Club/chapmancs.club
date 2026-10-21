@@ -12,16 +12,17 @@ interface ActionListItemProps {
   target?: string;
   onClick?: React.MouseEventHandler<HTMLDivElement | HTMLAnchorElement>;
   role?: string;
+  tabIndex?: number;
 }
 
 const ActionListItem: React.FC<ActionListItemProps> = (props) => {
-  const { href, target, onClick, children, icon, style, role } = props;
+  const { href, target, onClick, children, icon, style, role, tabIndex = 0 } = props;
 
   const resolvedRole = role || (href ? "link" : "button");
 
   if (href) {
     return (
-      <a className={styles.item} href={href} target={target} style={style} tabIndex={0} role={resolvedRole}>
+      <a className={styles.item} href={href} target={target} style={style} tabIndex={tabIndex} role={resolvedRole}>
         <figure className={styles.icon}>{icon}</figure>
         <span className={styles.text}>{children}</span>
       </a>
@@ -45,7 +46,7 @@ const ActionListItem: React.FC<ActionListItemProps> = (props) => {
       onClick={onClick}
       onKeyDown={handleKeyDown}
       style={style}
-      tabIndex={0}
+      tabIndex={tabIndex}
       role={resolvedRole}
     >
       <figure className={styles.icon}>{icon}</figure>
