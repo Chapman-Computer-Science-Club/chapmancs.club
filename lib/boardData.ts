@@ -45,33 +45,32 @@ export const boardYears: { year: string; tiers: { label: string; members: BoardM
     year: "'26",
     tiers: [
       {
-        label: "Executive Leadership",
+        label: "Leadership",
         members: [m(p.nataniel_farzan, "Co-President"), m(p.jeffrey_bok, "Co-President")],
       },
       {
-        label: "Vice Presidents",
+        label: "Internal Team",
         members: [
           m(p.dylan_ravel, "Internal Vice President"),
-          m(p.daniel_tsivkovski, "Operations Vice President"),
-          m(p.tom_moore, "External Vice President"),
-        ],
-      },
-      { label: "Operations", members: [m(p.connor_zermeno, "Secretary"), m(p.daniel_min, "Treasurer")] },
-      {
-        label: "Events",
-        members: [
           m(p.maya_federico, "General Events Coordinator"),
           m(p.benjamin_chan, "General Events Coordinator"),
           m(p.thaw_han, "Special Events Coordinator"),
         ],
       },
       {
-        label: "Hackathon & Conference",
-        members: [m(p.joel_escobar, "Hackathon Coordinator"), m(p.hemi_shah, "Conference Coordinator")],
+        label: "Operations Team",
+        members: [
+          m(p.daniel_tsivkovski, "Operations Vice President"),
+          m(p.connor_zermeno, "Secretary"),
+          m(p.daniel_min, "Treasurer"),
+        ],
       },
       {
-        label: "Marketing",
+        label: "External Team",
         members: [
+          m(p.tom_moore, "External Vice President"),
+          m(p.joel_escobar, "Hackathon Coordinator"),
+          m(p.hemi_shah, "Conference Coordinator"),
           m(p.kalin_richardson, "Marketing Director"),
           m(p.sam_fago, "Marketing Chair (Fall)"),
           m(p.lydia_moore, "Marketing Chair"),
@@ -95,7 +94,7 @@ export const boardYears: { year: string; tiers: { label: string; members: BoardM
         ],
       },
       {
-        label: "Operations",
+        label: "Operations Team",
         members: [
           m(p.joel_escobar, "Operations Vice President"),
           m(p.daniel_min, "Treasurer"),
