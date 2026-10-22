@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Space_Mono } from "next/font/google";
 
 import Shell from "@/components/Shell";
-import { SITE_NAME, SITE_URL } from "@/lib/seo";
+import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 import "./sacred.css";
 import "./globals.css";
@@ -17,7 +17,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: SITE_NAME, template: `%s • ${SITE_NAME}` },
   description: "Chapman University's CS Club - connect, collaborate, and create in the field of computer science.",
-  twitter: { card: "summary" },
+  openGraph: { siteName: SITE_NAME, type: "website", images: [OG_IMAGE] },
+  twitter: { card: "summary_large_image" },
   icons: {
     icon: "/old_cs_logo.png",
     shortcut: "/old_cs_logo.png",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 export const SITE_URL = "https://chapmancs.club";
 export const SITE_NAME = "Chapman Computer Science Club";
+export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630, alt: SITE_NAME };
 
 export function pageMetadata(path: string, title: string | null, description: string): Metadata {
   return {
@@ -14,7 +15,7 @@ export function pageMetadata(path: string, title: string | null, description: st
       url: path,
       siteName: SITE_NAME,
       type: "website",
-      images: ["/old_cs_logo.png"],
+      images: [OG_IMAGE],
     },
   };
 }
